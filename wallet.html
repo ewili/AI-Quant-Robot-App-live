@@ -1,0 +1,1069 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的钱包</title>
+    <style id="theme-vars">
+:root {
+  /* Brand primary: cyan-teal */
+  --q-primary-50: #e6fffa;
+  --q-primary-100: #b2f5ea;
+  --q-primary-200: #81e6d9;
+  --q-primary-300: #4fd1c5;
+  --q-primary-400: #38b2ac;
+  --q-primary-500: #00d4aa;
+  --q-primary-600: #00b894;
+  --q-primary-700: #00997a;
+  --q-primary-800: #007a61;
+  --q-primary-900: #005c49;
+
+  /* Neutral scale */
+  --q-neutral-0: #ffffff;
+  --q-neutral-50: #f7f7f8;
+  --q-neutral-100: #ececee;
+  --q-neutral-200: #d4d4d9;
+  --q-neutral-300: #a5a5af;
+  --q-neutral-400: #777784;
+  --q-neutral-500: #555560;
+  --q-neutral-600: #3e3e48;
+  --q-neutral-700: #282830;
+  --q-neutral-800: #1a1a20;
+  --q-neutral-900: #0b0b0f;
+
+  /* State colors */
+  --q-state-success: #22c55e;
+  --q-state-success-bg: rgba(34, 197, 94, 0.12);
+  --q-state-warning: #f59e0b;
+  --q-state-warning-bg: rgba(245, 158, 11, 0.12);
+  --q-state-error: #ef4444;
+  --q-state-error-bg: rgba(239, 68, 68, 0.12);
+  --q-state-info: #3b82f6;
+  --q-state-info-bg: rgba(59, 130, 246, 0.12);
+
+  /* Semantic aliases */
+  --q-background: var(--q-neutral-900);
+  --q-foreground: var(--q-neutral-0);
+  --q-card: var(--q-neutral-800);
+  --q-card-foreground: var(--q-neutral-0);
+  --q-popover: var(--q-neutral-800);
+  --q-popover-foreground: var(--q-neutral-0);
+  --q-primary: var(--q-primary-500);
+  --q-primary-foreground: var(--q-neutral-900);
+  --q-secondary: var(--q-neutral-700);
+  --q-secondary-foreground: var(--q-neutral-0);
+  --q-muted: var(--q-neutral-700);
+  --q-muted-foreground: var(--q-neutral-400);
+  --q-accent: var(--q-primary-500);
+  --q-accent-foreground: var(--q-neutral-900);
+  --q-border: rgba(255, 255, 255, 0.08);
+  --q-input: rgba(255, 255, 255, 0.08);
+  --q-ring: var(--q-primary-500);
+  --q-radius-small: 4px;
+  --q-radius-medium: 8px;
+  --q-radius-large: 12px;
+  --q-radius-full: 9999px;
+
+  /* Legacy aliases for page use */
+  --bg: var(--q-background);
+  --surface: var(--q-card);
+  --surface-2: var(--q-neutral-700);
+  --ink: var(--q-foreground);
+  --ink-2: var(--q-neutral-300);
+  --ink-3: var(--q-neutral-400);
+  --line: var(--q-border);
+  --brand: var(--q-primary);
+  --brand-ink: var(--q-primary-foreground);
+  --state-success: var(--q-state-success);
+  --state-warning: var(--q-state-warning);
+  --state-error: var(--q-state-error);
+  --state-info: var(--q-state-info);
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-pill: 999px;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, 0.15);
+  --shadow-2: 0 8px 24px -8px rgba(0, 0, 0, 0.4);
+  --shadow-3: 0 24px 60px -20px rgba(0, 0, 0, 0.55);
+}
+
+@theme inline {
+  --color-background: var(--q-background);
+  --color-foreground: var(--q-foreground);
+  --color-card: var(--q-card);
+  --color-card-foreground: var(--q-card-foreground);
+  --color-popover: var(--q-popover);
+  --color-popover-foreground: var(--q-popover-foreground);
+  --color-primary: var(--q-primary);
+  --color-primary-foreground: var(--q-primary-foreground);
+  --color-secondary: var(--q-secondary);
+  --color-secondary-foreground: var(--q-secondary-foreground);
+  --color-muted: var(--q-muted);
+  --color-muted-foreground: var(--q-muted-foreground);
+  --color-accent: var(--q-accent);
+  --color-accent-foreground: var(--q-accent-foreground);
+  --color-border: var(--q-border);
+  --color-input: var(--q-input);
+  --color-ring: var(--q-ring);
+  --radius-sm: var(--q-radius-small);
+  --radius-md: var(--q-radius-medium);
+  --radius-lg: var(--q-radius-large);
+  --radius-full: var(--q-radius-full);
+}
+
+/* Base typography */
+html,
+body {
+  font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  background-color: var(--q-background);
+  color: var(--q-foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-mono {
+  font-family: "SF Mono", "JetBrains Mono", Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Safe area helpers for mobile mockups */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Gradient accents (same-hue only) */
+.brand-gradient {
+  background: linear-gradient(135deg, var(--q-primary-500) 0%, var(--q-primary-700) 100%);
+}
+
+/* Custom scrollbar for desktop preview */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--q-neutral-600);
+  border-radius: 2px;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--q-background);
+    --color-foreground: var(--q-foreground);
+    --color-card: var(--q-card);
+    --color-card-foreground: var(--q-card-foreground);
+    --color-popover: var(--q-popover);
+    --color-popover-foreground: var(--q-popover-foreground);
+    --color-primary: var(--q-primary);
+    --color-primary-foreground: var(--q-primary-foreground);
+    --color-secondary: var(--q-secondary);
+    --color-secondary-foreground: var(--q-secondary-foreground);
+    --color-muted: var(--q-muted);
+    --color-muted-foreground: var(--q-muted-foreground);
+    --color-accent: var(--q-accent);
+    --color-accent-foreground: var(--q-accent-foreground);
+    --color-border: var(--q-border);
+    --color-input: var(--q-input);
+    --color-ring: var(--q-ring);
+    --radius-sm: var(--q-radius-small);
+    --radius-md: var(--q-radius-medium);
+    --radius-lg: var(--q-radius-large);
+    --radius-full: var(--q-radius-full);
+  }
+  @layer base {
+    body { background: var(--q-background); color: var(--q-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--q-background); }
+      .text-background { color: var(--q-background); }
+      .border-background { border-color: var(--q-background); }
+      .ring-background { --tw-ring-color: var(--q-background); }
+      .bg-foreground { background-color: var(--q-foreground); }
+      .text-foreground { color: var(--q-foreground); }
+      .border-foreground { border-color: var(--q-foreground); }
+      .ring-foreground { --tw-ring-color: var(--q-foreground); }
+      .bg-card { background-color: var(--q-card); }
+      .text-card { color: var(--q-card); }
+      .border-card { border-color: var(--q-card); }
+      .ring-card { --tw-ring-color: var(--q-card); }
+      .bg-card-foreground { background-color: var(--q-card-foreground); }
+      .text-card-foreground { color: var(--q-card-foreground); }
+      .border-card-foreground { border-color: var(--q-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--q-card-foreground); }
+      .bg-popover { background-color: var(--q-popover); }
+      .text-popover { color: var(--q-popover); }
+      .border-popover { border-color: var(--q-popover); }
+      .ring-popover { --tw-ring-color: var(--q-popover); }
+      .bg-popover-foreground { background-color: var(--q-popover-foreground); }
+      .text-popover-foreground { color: var(--q-popover-foreground); }
+      .border-popover-foreground { border-color: var(--q-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--q-popover-foreground); }
+      .bg-primary { background-color: var(--q-primary); }
+      .text-primary { color: var(--q-primary); }
+      .border-primary { border-color: var(--q-primary); }
+      .ring-primary { --tw-ring-color: var(--q-primary); }
+      .bg-primary-foreground { background-color: var(--q-primary-foreground); }
+      .text-primary-foreground { color: var(--q-primary-foreground); }
+      .border-primary-foreground { border-color: var(--q-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--q-primary-foreground); }
+      .bg-secondary { background-color: var(--q-secondary); }
+      .text-secondary { color: var(--q-secondary); }
+      .border-secondary { border-color: var(--q-secondary); }
+      .ring-secondary { --tw-ring-color: var(--q-secondary); }
+      .bg-secondary-foreground { background-color: var(--q-secondary-foreground); }
+      .text-secondary-foreground { color: var(--q-secondary-foreground); }
+      .border-secondary-foreground { border-color: var(--q-secondary-foreground); }
+      .ring-secondary-foreground { --tw-ring-color: var(--q-secondary-foreground); }
+      .bg-muted { background-color: var(--q-muted); }
+      .text-muted { color: var(--q-muted); }
+      .border-muted { border-color: var(--q-muted); }
+      .ring-muted { --tw-ring-color: var(--q-muted); }
+      .bg-muted-foreground { background-color: var(--q-muted-foreground); }
+      .text-muted-foreground { color: var(--q-muted-foreground); }
+      .border-muted-foreground { border-color: var(--q-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--q-muted-foreground); }
+      .bg-accent { background-color: var(--q-accent); }
+      .text-accent { color: var(--q-accent); }
+      .border-accent { border-color: var(--q-accent); }
+      .ring-accent { --tw-ring-color: var(--q-accent); }
+      .bg-accent-foreground { background-color: var(--q-accent-foreground); }
+      .text-accent-foreground { color: var(--q-accent-foreground); }
+      .border-accent-foreground { border-color: var(--q-accent-foreground); }
+      .ring-accent-foreground { --tw-ring-color: var(--q-accent-foreground); }
+      .bg-border { background-color: var(--q-border); }
+      .text-border { color: var(--q-border); }
+      .border-border { border-color: var(--q-border); }
+      .ring-border { --tw-ring-color: var(--q-border); }
+      .bg-input { background-color: var(--q-input); }
+      .text-input { color: var(--q-input); }
+      .border-input { border-color: var(--q-input); }
+      .ring-input { --tw-ring-color: var(--q-input); }
+      .bg-ring { background-color: var(--q-ring); }
+      .text-ring { color: var(--q-ring); }
+      .border-ring { border-color: var(--q-ring); }
+      .ring-ring { --tw-ring-color: var(--q-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+      .tab-panel { display: none; }
+      .tab-panel.active { display: block; }
+      .tab-btn.active { color: var(--q-primary); }
+      .tab-btn.active::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 0.125rem;
+        background: var(--q-primary);
+        border-radius: 9999px 9999px 0 0;
+      }
+      .qr-grid {
+        background-image:
+          linear-gradient(45deg, var(--q-neutral-700) 25%, transparent 25%),
+          linear-gradient(-45deg, var(--q-neutral-700) 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, var(--q-neutral-700) 75%),
+          linear-gradient(-45deg, transparent 75%, var(--q-neutral-700) 75%);
+        background-size: 16px 16px;
+        background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+      }
+      .tier-radio:checked + .tier-label {
+        border-color: var(--q-primary);
+        background: rgba(0, 212, 170, 0.10);
+        color: var(--q-primary);
+      }
+    </style>
+
+<style id="light-theme-override">
+html.light {
+  /* Brand primary: blue */
+  --q-primary-50: #eff6ff;
+  --q-primary-100: #dbeafe;
+  --q-primary-200: #bfdbfe;
+  --q-primary-300: #93c5fd;
+  --q-primary-400: #60a5fa;
+  --q-primary-500: #3b82f6;
+  --q-primary-600: #2563eb;
+  --q-primary-700: #1d4ed8;
+  --q-primary-800: #1e40af;
+  --q-primary-900: #1e3a8a;
+
+  /* Neutral slate */
+  --q-neutral-0: #ffffff;
+  --q-neutral-50: #f8fafc;
+  --q-neutral-100: #f1f5f9;
+  --q-neutral-200: #e2e8f0;
+  --q-neutral-300: #cbd5e1;
+  --q-neutral-400: #94a3b8;
+  --q-neutral-500: #64748b;
+  --q-neutral-600: #475569;
+  --q-neutral-700: #334155;
+  --q-neutral-800: #1e293b;
+  --q-neutral-900: #0f172a;
+
+  /* Semantic aliases */
+  --q-background: var(--q-neutral-0);
+  --q-foreground: var(--q-neutral-900);
+  --q-card: var(--q-neutral-0);
+  --q-card-foreground: var(--q-neutral-900);
+  --q-popover: var(--q-neutral-0);
+  --q-popover-foreground: var(--q-neutral-900);
+  --q-primary: var(--q-primary-500);
+  --q-primary-foreground: var(--q-neutral-0);
+  --q-secondary: var(--q-neutral-100);
+  --q-secondary-foreground: var(--q-neutral-900);
+  --q-muted: var(--q-neutral-100);
+  --q-muted-foreground: var(--q-neutral-500);
+  --q-accent: var(--q-primary-500);
+  --q-accent-foreground: var(--q-neutral-0);
+  --q-border: rgba(15, 23, 42, 0.08);
+  --q-input: rgba(15, 23, 42, 0.08);
+  --q-ring: var(--q-primary-500);
+
+  /* Tailwind @theme inline tokens redefined for light mode */
+  --color-background: var(--q-background);
+  --color-foreground: var(--q-foreground);
+  --color-card: var(--q-card);
+  --color-card-foreground: var(--q-card-foreground);
+  --color-popover: var(--q-popover);
+  --color-popover-foreground: var(--q-popover-foreground);
+  --color-primary: var(--q-primary);
+  --color-primary-foreground: var(--q-primary-foreground);
+  --color-secondary: var(--q-secondary);
+  --color-secondary-foreground: var(--q-secondary-foreground);
+  --color-muted: var(--q-muted);
+  --color-muted-foreground: var(--q-muted-foreground);
+  --color-accent: var(--q-accent);
+  --color-accent-foreground: var(--q-accent-foreground);
+  --color-border: var(--q-border);
+  --color-input: var(--q-input);
+  --color-ring: var(--q-ring);
+
+  /* Legacy aliases */
+  --bg: var(--q-background);
+  --surface: var(--q-card);
+  --surface-2: var(--q-neutral-100);
+  --ink: var(--q-foreground);
+  --ink-2: var(--q-neutral-500);
+  --ink-3: var(--q-neutral-400);
+  --line: var(--q-border);
+  --brand: var(--q-primary);
+  --brand-ink: var(--q-primary-foreground);
+
+  /* Shadows */
+  --shadow-1: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 1px rgba(15, 23, 42, 0.04);
+  --shadow-2: 0 8px 24px -8px rgba(15, 23, 42, 0.12);
+  --shadow-3: 0 24px 60px -20px rgba(15, 23, 42, 0.16); }
+}
+
+/* Tailwind semantic utility insurance overrides */
+html.light .bg-background { background-color: var(--q-neutral-0) !important; }
+html.light .bg-background\/95 { background-color: rgba(255, 255, 255, 0.95) !important; }
+html.light .bg-background\/90 { background-color: rgba(255, 255, 255, 0.90) !important; }
+html.light .bg-card { background-color: var(--q-neutral-0) !important; }
+html.light .bg-card-foreground { background-color: var(--q-neutral-900) !important; }
+html.light .bg-popover { background-color: var(--q-neutral-0) !important; }
+html.light .bg-muted { background-color: var(--q-neutral-100) !important; }
+html.light .bg-secondary { background-color: var(--q-neutral-100) !important; }
+html.light .bg-primary { background-color: var(--q-primary-500) !important; }
+html.light .bg-primary-foreground { background-color: var(--q-neutral-0) !important; }
+html.light .bg-accent { background-color: var(--q-primary-500) !important; }
+html.light .text-foreground { color: var(--q-neutral-900) !important; }
+html.light .text-card-foreground { color: var(--q-neutral-900) !important; }
+html.light .text-popover-foreground { color: var(--q-neutral-900) !important; }
+html.light .text-primary { color: var(--q-primary-500) !important; }
+html.light .text-primary-foreground { color: var(--q-neutral-0) !important; }
+html.light .text-secondary-foreground { color: var(--q-neutral-900) !important; }
+html.light .text-muted-foreground { color: var(--q-neutral-500) !important; }
+html.light .text-accent-foreground { color: var(--q-neutral-0) !important; }
+html.light .text-muted { color: var(--q-neutral-500) !important; }
+html.light .border-border { border-color: var(--q-border) !important; }
+html.light .border-input { border-color: var(--q-input) !important; }
+html.light .ring-ring { --tw-ring-color: var(--q-ring) !important; }
+
+html.light .brand-gradient {
+  background: linear-gradient(135deg, var(--q-primary-500) 0%, var(--q-primary-700) 100%);
+}
+
+/* --- Dark-to-light utility overrides --- */
+html.light [class~="bg-[#0b0b0f]"] { background-color: #ffffff !important; }
+html.light [class~="bg-[#0b0b0f]/95"] { background-color: rgba(255, 255, 255, 0.95) !important; }
+html.light [class~="bg-[#14141A]"] { background-color: #ffffff !important; }
+html.light [class~="bg-[#14141A]/95"] { background-color: rgba(255, 255, 255, 0.95) !important; }
+html.light [class~="bg-[#1a1a20]"] { background-color: #ffffff !important; }
+html.light [class~="bg-[#1a1a20]/95"] { background-color: rgba(255, 255, 255, 0.95) !important; }
+html.light [class~="bg-[#15151a]"] { background-color: #f8fafc !important; }
+html.light [class~="bg-[#282830]"] { background-color: #f1f5f9 !important; }
+html.light [class~="bg-[#202028]"] { background-color: #f8fafc !important; }
+html.light [class~="bg-[#32323a]"] { background-color: #e2e8f0 !important; }
+html.light [class~="bg-[#777784]"] { background-color: #e2e8f0 !important; }
+html.light [class~="bg-[#00e0b5]"] { background-color: #3b82f6 !important; }
+html.light [class~="bg-[#00b894]"] { background-color: #2563eb !important; }
+html.light [class~="bg-[rgba(0,212,170,0.10)]"] { background-color: rgba(59, 130, 246, 0.10) !important; }
+html.light [class~="bg-[rgba(0,212,170,0.10)]/60"] { background-color: rgba(59, 130, 246, 0.06) !important; }
+
+html.light [class~="text-white"] { color: #0f172a !important; }
+html.light [class~="text-[#0b0b0f]"] { color: #ffffff !important; }
+html.light [class~="text-[#ffffff]"] { color: #0f172a !important; }
+html.light [class~="text-[#d4d4d9]"] { color: #64748b !important; }
+html.light [class~="text-[#777784]"] { color: #94a3b8 !important; }
+html.light [class~="text-[#555560]"] { color: #64748b !important; }
+html.light [class~="text-[#3e3e48]"] { color: #475569 !important; }
+html.light [class~="text-[#a5a5af]"] { color: #94a3b8 !important; }
+html.light [class~="text-[#00e6b8]"] { color: #2563eb !important; }
+
+html.light [class~="border-white/5"] { border-color: rgba(15, 23, 42, 0.05) !important; }
+html.light [class~="border-white/8"] { border-color: rgba(15, 23, 42, 0.08) !important; }
+html.light [class~="border-white/10"] { border-color: rgba(15, 23, 42, 0.10) !important; }
+html.light [class~="border-white/20"] { border-color: rgba(15, 23, 42, 0.20) !important; }
+
+html.light [class~="bg-white/5"] { background-color: rgba(15, 23, 42, 0.05) !important; }
+html.light [class~="bg-white/8"] { background-color: rgba(15, 23, 42, 0.08) !important; }
+html.light [class~="bg-white/10"] { background-color: rgba(15, 23, 42, 0.10) !important; }
+html.light [class~="bg-white/20"] { background-color: rgba(15, 23, 42, 0.20) !important; }
+
+html.light .hover\:bg-white\/5:hover { background-color: rgba(15, 23, 42, 0.05) !important; }
+html.light .hover\:bg-white\/8:hover { background-color: rgba(15, 23, 42, 0.08) !important; }
+html.light .hover\:bg-white\/10:hover { background-color: rgba(15, 23, 42, 0.10) !important; }
+html.light .hover\:bg-\[\#202028\]:hover { background-color: #f8fafc !important; }
+html.light .hover\:bg-\[\#32323a\]:hover { background-color: #e2e8f0 !important; }
+
+/* Teal-to-blue accents */
+html.light [class~="bg-[#00d4aa]"] { background-color: #3b82f6 !important; }
+html.light [class~="bg-[#00d4aa]/5"] { background-color: rgba(59, 130, 246, 0.05) !important; }
+html.light [class~="bg-[#00d4aa]/8"] { background-color: rgba(59, 130, 246, 0.08) !important; }
+html.light [class~="bg-[#00d4aa]/10"] { background-color: rgba(59, 130, 246, 0.10) !important; }
+html.light [class~="bg-[#00d4aa]/12"] { background-color: rgba(59, 130, 246, 0.12) !important; }
+html.light [class~="bg-[#00d4aa]/15"] { background-color: rgba(59, 130, 246, 0.15) !important; }
+html.light [class~="bg-[#00d4aa]/20"] { background-color: rgba(59, 130, 246, 0.20) !important; }
+html.light [class~="text-[#00d4aa]"] { color: #3b82f6 !important; }
+html.light [class~="ring-[#00d4aa]"] { --tw-ring-color: #3b82f6 !important; }
+html.light [class~="border-[#00d4aa]"] { border-color: #3b82f6 !important; }
+html.light [class~="border-[#0b0b0f]"] { border-color: rgba(15, 23, 42, 0.08) !important; }
+html.light [class~="border-[#d4d4d9]"] { border-color: rgba(15, 23, 42, 0.15) !important; }
+
+html.light .hover\:bg-\[\#00b894\]:hover { background-color: #2563eb !important; }
+html.light .hover\:text-\[\#00b894\]:hover { color: #2563eb !important; }
+
+html.light [class~="ring-[#0b0b0f]"] { --tw-ring-color: #ffffff !important; }
+html.light [class~="ring-white"] { --tw-ring-color: #0f172a !important; }
+
+/* Specific gradient overrides */
+html.light [class*="bg-gradient-to-br"][class*="from-[#1a1a20]"][class*="to-[#15151a]"] {
+  background-image: linear-gradient(to bottom right, #ffffff, #f8fafc) !important;
+}
+html.light [class*="bg-gradient-to-r"][class*="from-[#1a1a20]"][class*="to-[#15151a]"] {
+  background-image: linear-gradient(to right, #ffffff, #f8fafc) !important;
+}
+
+/* Form controls on light theme */
+html.light .input-field,
+html.light .select-field {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #0f172a !important;
+}
+html.light .input-field::placeholder { color: #94a3b8 !important; }
+html.light .select-field { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important; }
+html.light .btn-primary { color: #ffffff !important; }
+html.light .btn-code {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+/* Scrollbar */
+html.light ::-webkit-scrollbar-thumb { background: var(--q-neutral-300); }
+</style>
+<script id="theme-controller">
+(function(){
+  var root = document.documentElement;
+  var KEY = 'app-theme';
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      root.classList.add('light');
+      root.classList.remove('dark');
+    } else {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    }
+  }
+  function updateLabel(theme) {
+    document.querySelectorAll('[data-theme-label]').forEach(function(el){
+      el.textContent = theme === 'light' ? '浅色' : '深色';
+    });
+  }
+  function readTheme() {
+    var v = null;
+    try { v = sessionStorage.getItem(KEY); } catch(e) {}
+    if (!v) { try { v = localStorage.getItem(KEY); } catch(e) {} }
+    return v === 'light' ? 'light' : 'dark';
+  }
+  function writeTheme(theme) {
+    try { sessionStorage.setItem(KEY, theme); } catch(e) {}
+    try { localStorage.setItem(KEY, theme); } catch(e) {}
+    var d = new Date();
+    d.setTime(d.getTime() + 365*24*60*60*1000);
+    try { document.cookie = KEY + '=' + theme + ';path=/;expires=' + d.toUTCString(); } catch(e) {}
+  }
+  var current = readTheme();
+  applyTheme(current);
+  updateLabel(current);
+  window.toggleAppTheme = function() {
+    var next = root.classList.contains('light') ? 'dark' : 'light';
+    applyTheme(next);
+    updateLabel(next);
+    writeTheme(next);
+  };
+  window.addEventListener('storage', function(e) {
+    if (e.key === KEY && e.newValue) {
+      applyTheme(e.newValue);
+      updateLabel(e.newValue);
+    }
+  });
+})();
+</script>
+
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main class="pb-28">
+      <div class="max-w-md mx-auto min-h-screen bg-background pb-8">
+        <!-- Header -->
+        <header class="sticky top-0 z-40 safe-top bg-background/95 backdrop-blur-sm border-b border-border">
+          <div class="flex items-center h-14 px-4">
+            <a href="profile.html" data-dom-id="back-button" data-interaction-target="page-profile" data-interaction-label="返回个人中心" class="flex items-center justify-center w-10 h-10 -ml-2 rounded-full text-foreground hover:bg-muted transition-colors" aria-label="返回个人中心">
+              <i data-lucide="chevron-left" class="w-6 h-6"></i>
+            </a>
+            <h1 class="flex-1 text-center text-lg font-semibold text-foreground pr-8">我的钱包</h1>
+          </div>
+        </header>
+
+        <!-- Tab Bar -->
+        <nav class="sticky top-14 z-30 bg-background border-b border-border">
+          <div class="flex items-center px-4 overflow-x-auto no-scrollbar" id="wallet-tab-bar">
+            <button type="button" class="tab-btn active relative flex-1 min-w-[4rem] py-3 text-sm font-medium text-primary whitespace-nowrap transition-colors" data-tab="usdt">
+              USDT
+            </button>
+            <button type="button" class="tab-btn relative flex-1 min-w-[4rem] py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap" data-tab="point">
+              点卡
+            </button>
+            <button type="button" class="tab-btn relative flex-1 min-w-[4rem] py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap" data-tab="commission">
+              佣金
+            </button>
+            <button type="button" class="tab-btn relative flex-1 min-w-[4rem] py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap" data-tab="gift">
+              赠点
+            </button>
+          </div>
+        </nav>
+
+        <!-- USDT Panel -->
+        <section class="tab-panel active px-4 mt-4" data-tab-panel="usdt">
+          <div class="bg-card rounded-2xl p-5 shadow-[var(--shadow-2)] border border-border">
+            <div class="flex items-center gap-2 text-muted-foreground text-sm mb-2">
+              <i data-lucide="wallet" class="w-4 h-4 text-primary"></i>
+              <span>USDT 账户</span>
+            </div>
+            <div class="text-4xl font-bold text-foreground tracking-tight font-mono">8,240.50</div>
+            <div class="text-sm text-muted-foreground mt-1">≈ ¥59,331.6（法币参考，非计价单位）</div>
+
+            <div class="grid grid-cols-2 gap-3 mt-6">
+              <button type="button" data-dom-id="wallet-recharge-qr" class="recharge-toggle flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                充值
+              </button>
+              <button type="button" data-dom-id="wallet-buy-point" class="tab-jump flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-secondary text-secondary-foreground text-sm font-medium hover:bg-muted transition-colors" data-target-tab="point">
+                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                购买点卡
+              </button>
+            </div>
+          </div>
+
+          <!-- Recharge QR -->
+          <div id="recharge-qr-section" class="hidden mt-4">
+            <div class="bg-card rounded-2xl p-5 border border-border">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2 text-sm font-semibold text-foreground">
+                  <i data-lucide="qr-code" class="w-4 h-4 text-primary"></i>
+                  充值二维码
+                </div>
+                <span class="text-xs px-2 py-1 rounded bg-primary/10 text-primary">TRC20</span>
+              </div>
+
+              <div class="flex justify-center">
+                <div class="w-44 h-44 rounded-lg qr-grid border-4 border-white bg-white p-2"></div>
+              </div>
+
+              <div class="mt-4">
+                <label class="text-xs text-muted-foreground">充值地址</label>
+                <div class="flex items-center gap-2 mt-1.5 p-3 rounded-lg bg-secondary">
+                  <code class="flex-1 text-xs text-foreground break-all font-mono">TY5C6mL8mJ3qW7vK2xR9sP4nQ1zA0bC3dE4fG5h</code>
+                  <button type="button" class="text-primary hover:opacity-80" aria-label="复制地址">
+                    <i data-lucide="copy" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+
+              <ul class="mt-4 space-y-2 text-xs text-muted-foreground">
+                <li class="flex items-start gap-2">
+                  <i data-lucide="info" class="w-3.5 h-3.5 text-primary shrink-0 mt-0.5"></i>
+                  <span>最低充值 30 USDT；低于最低金额的充值不会上链且无法退回</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i data-lucide="info" class="w-3.5 h-3.5 text-primary shrink-0 mt-0.5"></i>
+                  <span>TRC20 通道手续费 3 USDT/笔，到账金额 = 充值金额 - 手续费</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i data-lucide="clock" class="w-3.5 h-3.5 text-primary shrink-0 mt-0.5"></i>
+                  <span>地址 15 分钟刷新，请在有效期内完成转账</span>
+                </li>
+                <li class="flex items-start gap-2 rounded-lg bg-[var(--q-state-error-bg)] p-2 text-[var(--q-state-error)]">
+                  <i data-lucide="alert-triangle" class="w-3.5 h-3.5 shrink-0 mt-0.5"></i>
+                  <span>充值的 USDT 仅可兑换点卡/购买激活码，不可直接提币。请预算好点卡金额，不要把量化资金全部充进机器人。</span>
+                </li>
+              </ul>
+
+              <label class="mt-4 flex items-start gap-2 text-xs text-muted-foreground cursor-pointer">
+                <input type="checkbox" class="mt-0.5 w-4 h-4 accent-primary shrink-0 rounded border-border bg-secondary">
+                <span>我已确认充值金额 ≥30 USDT，并了解充值的 USDT 不可直接提币</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Transaction List -->
+          <section class="mt-6">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-base font-semibold text-foreground">最近流水</h2>
+              <div class="flex items-center gap-1 text-sm text-muted-foreground">
+                <i data-lucide="filter" class="w-3.5 h-3.5"></i>
+                <span>筛选</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 mb-4">
+              <button type="button" class="px-3 py-1.5 rounded-full text-xs font-medium bg-primary text-primary-foreground">全部</button>
+              <button type="button" class="px-3 py-1.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground hover:bg-muted transition-colors">收入</button>
+              <button type="button" class="px-3 py-1.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground hover:bg-muted transition-colors">支出</button>
+            </div>
+
+            <div class="bg-card rounded-2xl border border-border overflow-hidden">
+              <div class="flex items-center gap-3 px-4 py-3.5 border-b border-border last:border-0">
+                <div class="flex items-center justify-center w-10 h-10 rounded-full bg-[var(--q-state-success-bg)] text-[var(--q-state-success)] shrink-0">
+                  <i data-lucide="arrow-down-left" class="w-5 h-5"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-sm font-medium text-foreground truncate">USDT 充值</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-18 10:23</div>
+                </div>
+                <div class="text-sm font-semibold text-[var(--q-state-success)] font-mono">+1,000.00</div>
+              </div>
+
+              <div class="flex items-center gap-3 px-4 py-3.5 border-b border-border last:border-0">
+                <div class="flex items-center justify-center w-10 h-10 rounded-full bg-[var(--q-state-error-bg)] text-[var(--q-state-error)] shrink-0">
+                  <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-sm font-medium text-foreground truncate">购买点卡</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-17 18:45</div>
+                </div>
+                <div class="text-sm font-semibold text-[var(--q-state-error)] font-mono">-100.00</div>
+              </div>
+
+              <div class="flex items-center gap-3 px-4 py-3.5 border-b border-border last:border-0">
+                <div class="flex items-center justify-center w-10 h-10 rounded-full bg-[var(--q-state-error-bg)] text-[var(--q-state-error)] shrink-0">
+                  <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-sm font-medium text-foreground truncate">购买激活码</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-16 09:12</div>
+                </div>
+                <div class="text-sm font-semibold text-[var(--q-state-error)] font-mono">-50.00</div>
+              </div>
+
+              <div class="flex items-center gap-3 px-4 py-3.5">
+                <div class="flex items-center justify-center w-10 h-10 rounded-full bg-[var(--q-state-success-bg)] text-[var(--q-state-success)] shrink-0">
+                  <i data-lucide="arrow-down-left" class="w-5 h-5"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-sm font-medium text-foreground truncate">USDT 充值</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-14 11:00</div>
+                </div>
+                <div class="text-sm font-semibold text-[var(--q-state-success)] font-mono">+500.00</div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- 点卡 Panel -->
+        <section class="tab-panel px-4 mt-4" data-tab-panel="point">
+          <div class="bg-card rounded-2xl p-5 shadow-[var(--shadow-2)] border border-border">
+            <div class="flex items-center gap-2 text-muted-foreground text-sm mb-2">
+              <i data-lucide="credit-card" class="w-4 h-4 text-primary"></i>
+              <span>点卡余额</span>
+            </div>
+            <div class="text-4xl font-bold text-foreground tracking-tight font-mono">1,250</div>
+            <div class="text-sm text-muted-foreground mt-1">用于每日跟单盈利 30% 服务费结算，未盈利不扣费</div>
+
+            <button type="button" data-dom-id="point-card-buy-btn" class="w-full mt-6 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity">
+              <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+              购买点卡
+            </button>
+          </div>
+          <div class="mt-4 bg-card rounded-2xl p-5 border border-border">
+            <div class="flex items-start justify-between gap-3 mb-4">
+              <h3 class="text-sm font-semibold text-foreground">选择购买金额</h3>
+              <span class="text-xs text-[var(--q-state-error)]">购买点卡不赠送赠点</span>
+            </div>
+            <p class="text-xs text-muted-foreground mb-4">赠点唯一来源为亏损回撤补偿，购买点卡不会获得赠点。</p>
+
+            <div class="grid grid-cols-3 gap-3">
+              <label class="relative cursor-pointer">
+                <input type="radio" name="point-tier" value="50" class="tier-radio sr-only">
+                <span class="tier-label flex flex-col items-center justify-center py-3 rounded-xl border border-border bg-secondary text-sm text-foreground transition-colors">
+                  <span class="font-semibold font-mono">50</span>
+                  <span class="text-xs text-muted-foreground mt-0.5">U</span>
+                </span>
+              </label>
+              <label class="relative cursor-pointer">
+                <input type="radio" name="point-tier" value="100" class="tier-radio sr-only" checked>
+                <span class="tier-label flex flex-col items-center justify-center py-3 rounded-xl border border-border bg-secondary text-sm text-foreground transition-colors">
+                  <span class="font-semibold font-mono">100</span>
+                  <span class="text-xs text-muted-foreground mt-0.5">U</span>
+                </span>
+              </label>
+              <label class="relative cursor-pointer">
+                <input type="radio" name="point-tier" value="200" class="tier-radio sr-only">
+                <span class="tier-label flex flex-col items-center justify-center py-3 rounded-xl border border-border bg-secondary text-sm text-foreground transition-colors">
+                  <span class="font-semibold font-mono">200</span>
+                  <span class="text-xs text-muted-foreground mt-0.5">U</span>
+                </span>
+              </label>
+              <label class="relative cursor-pointer">
+                <input type="radio" name="point-tier" value="500" class="tier-radio sr-only">
+                <span class="tier-label flex flex-col items-center justify-center py-3 rounded-xl border border-border bg-secondary text-sm text-foreground transition-colors">
+                  <span class="font-semibold font-mono">500</span>
+                  <span class="text-xs text-muted-foreground mt-0.5">U</span>
+                </span>
+              </label>
+              <label class="relative cursor-pointer">
+                <input type="radio" name="point-tier" value="1000" class="tier-radio sr-only">
+                <span class="tier-label flex flex-col items-center justify-center py-3 rounded-xl border border-border bg-secondary text-sm text-foreground transition-colors">
+                  <span class="font-semibold font-mono">1,000</span>
+                  <span class="text-xs text-muted-foreground mt-0.5">U</span>
+                </span>
+              </label>
+              <label class="relative cursor-pointer">
+                <input type="radio" name="point-tier" value="2000" class="tier-radio sr-only">
+                <span class="tier-label flex flex-col items-center justify-center py-3 rounded-xl border border-border bg-secondary text-sm text-foreground transition-colors">
+                  <span class="font-semibold font-mono">2,000</span>
+                  <span class="text-xs text-muted-foreground mt-0.5">U</span>
+                </span>
+              </label>
+              <label class="relative cursor-pointer col-span-3">
+                <input type="radio" name="point-tier" value="custom" class="tier-radio sr-only">
+                <span class="tier-label flex items-center justify-center gap-2 py-3 rounded-xl border border-border bg-secondary text-sm text-foreground transition-colors">
+                  <i data-lucide="pen-line" class="w-4 h-4"></i>
+                  自定义金额
+                </span>
+              </label>
+            </div>
+
+            <div class="mt-4">
+              <label class="text-xs text-muted-foreground">支付密码</label>
+              <div class="relative mt-1.5">
+                <input type="password" placeholder="请输入 6 位支付密码" maxlength="6" class="w-full px-3 py-2.5 rounded-lg bg-secondary border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary font-mono">
+                <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground" aria-label="忘记密码">
+                  <i data-lucide="eye-off" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between mt-4 text-sm">
+              <span class="text-muted-foreground">应付金额</span>
+              <span class="font-semibold text-primary font-mono">100 USDT</span>
+            </div>
+
+            <button type="button" class="w-full mt-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity">
+              确认购买
+            </button>
+          </div>
+
+          <div class="mt-4 bg-card rounded-2xl p-5 border border-border">
+            <h3 class="text-sm font-semibold text-foreground mb-3">点卡流水</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-sm">
+                <div>
+                  <div class="text-foreground font-medium">购买点卡</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-17 18:45</div>
+                </div>
+                <span class="text-sm font-mono text-[var(--q-state-success)]">+100</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <div>
+                  <div class="text-foreground font-medium">每日服务费抵扣</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-18 00:05</div>
+                </div>
+                <span class="text-sm font-mono text-[var(--q-state-error)]">-30</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <div>
+                  <div class="text-foreground font-medium">佣金兑换</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-15 20:10</div>
+                </div>
+                <span class="text-sm font-mono text-[var(--q-state-success)]">+50</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 佣金 Panel -->
+        <section class="tab-panel px-4 mt-4" data-tab-panel="commission">
+          <div class="bg-card rounded-2xl p-5 shadow-[var(--shadow-2)] border border-border">
+            <div class="flex items-center gap-2 text-muted-foreground text-sm mb-2">
+              <i data-lucide="coins" class="w-4 h-4 text-primary"></i>
+              <span>可提佣金</span>
+            </div>
+            <div class="text-4xl font-bold text-foreground tracking-tight font-mono">86.40</div>
+            <div class="text-sm text-[var(--q-state-error)] mt-1">未满足最低提现 100 USDT</div>
+
+            <div class="grid grid-cols-2 gap-3 mt-6">
+              <button type="button" data-dom-id="commission-withdraw-btn" disabled class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-muted text-muted-foreground text-sm font-medium cursor-not-allowed">
+                <i data-lucide="banknote" class="w-4 h-4"></i>
+                提现
+              </button>
+              <button type="button" class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity">
+                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                购买点卡
+              </button>
+            </div>
+          </div>
+          <div class="mt-4 bg-card rounded-2xl p-5 border border-border">
+            <h3 class="text-sm font-semibold text-foreground mb-3">佣金规则</h3>
+            <ul class="space-y-3 text-sm text-muted-foreground">
+              <li class="flex items-start gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-primary shrink-0 mt-0.5"></i>
+                <span>最低提现金额为 100 USDT，申请 103 USDT 实际到账 100 USDT</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-primary shrink-0 mt-0.5"></i>
+                <span>每笔提现收取手续费 3 USDT</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-primary shrink-0 mt-0.5"></i>
+                <span>佣金余额为负时不可提现，需待返佣转正</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-primary shrink-0 mt-0.5"></i>
+                <span>佣金可一键兑换为点卡，来源标记为「佣金」</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="mt-4 bg-card rounded-2xl p-5 border border-border">
+            <h3 class="text-sm font-semibold text-foreground mb-3">佣金明细</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-sm">
+                <div>
+                  <div class="text-foreground font-medium">一级邀请返佣 · 用户 A**8</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-18 00:10</div>
+                </div>
+                <span class="text-sm font-mono text-[var(--q-state-success)]">+12.50</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <div>
+                  <div class="text-foreground font-medium">一级邀请返佣 · 用户 B**3</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-18 00:10</div>
+                </div>
+                <span class="text-sm font-mono text-[var(--q-state-success)]">+8.20</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <div>
+                  <div class="text-foreground font-medium">二级邀请返佣 · 用户 C**6</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-17 23:55</div>
+                </div>
+                <span class="text-sm font-mono text-[var(--q-state-success)]">+3.10</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <div>
+                  <div class="text-foreground font-medium">一级邀请返佣 · 用户 D**1</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-17 23:55</div>
+                </div>
+                <span class="text-sm font-mono text-[var(--q-state-success)]">+25.60</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 bg-card rounded-2xl p-5 border border-border">
+            <h3 class="text-sm font-semibold text-foreground mb-3">提现记录</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-sm">
+                <div>
+                  <div class="text-foreground font-medium">提现 103 USDT</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-16 14:30</div>
+                </div>
+                <span class="px-2 py-1 rounded-full text-xs font-medium bg-[var(--q-state-success-bg)] text-[var(--q-state-success)]">已到账</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <div>
+                  <div class="text-foreground font-medium">提现 103 USDT</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-15 09:12</div>
+                </div>
+                <span class="px-2 py-1 rounded-full text-xs font-medium bg-[var(--q-state-info-bg)] text-[var(--q-state-info)]">打款中</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <div>
+                  <div class="text-foreground font-medium">提现 103 USDT</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-14 11:20</div>
+                </div>
+                <span class="px-2 py-1 rounded-full text-xs font-medium bg-[var(--q-state-warning-bg)] text-[var(--q-state-warning)]">待审核</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <div>
+                  <div class="text-foreground font-medium">提现 103 USDT</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-13 16:45</div>
+                </div>
+                <span class="px-2 py-1 rounded-full text-xs font-medium bg-[var(--q-state-error-bg)] text-[var(--q-state-error)]">已驳回</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 赠点 Panel -->
+        <section class="tab-panel px-4 mt-4" data-tab-panel="gift">
+          <div class="bg-card rounded-2xl p-5 shadow-[var(--shadow-2)] border border-border">
+            <div class="flex items-center gap-2 text-muted-foreground text-sm mb-2">
+              <i data-lucide="gift" class="w-4 h-4 text-primary"></i>
+              <span>赠点余额</span>
+            </div>
+            <div class="text-4xl font-bold text-foreground tracking-tight font-mono">50</div>
+            <div class="text-sm text-muted-foreground mt-1">仅用于抵扣服务费，不可提现、不可转让</div>
+          </div>
+
+          <div class="mt-4 bg-card rounded-2xl p-5 border border-border">
+            <h3 class="text-sm font-semibold text-foreground mb-3">赠点规则</h3>
+            <ul class="space-y-3 text-sm text-muted-foreground">
+              <li class="flex items-start gap-2">
+                <i data-lucide="sparkles" class="w-4 h-4 text-primary shrink-0 mt-0.5"></i>
+                <span>赠点仅用于抵扣每日结算服务费，优先于点卡抵扣</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="gift" class="w-4 h-4 text-primary shrink-0 mt-0.5"></i>
+                <span>赠点唯一来源为亏损回撤补偿，购买点卡不会获得赠点</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="ban" class="w-4 h-4 text-primary shrink-0 mt-0.5"></i>
+                <span>赠点不可提现、不可转让、不可兑换为点卡</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="receipt" class="w-4 h-4 text-primary shrink-0 mt-0.5"></i>
+                <span>赠点抵扣服务费时不产生佣金</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="mt-4 bg-card rounded-2xl p-5 border border-border">
+            <h3 class="text-sm font-semibold text-foreground mb-3">赠点明细</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-sm">
+                <div>
+                  <div class="text-foreground font-medium">亏损回撤补偿</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-17 23:50</div>
+                </div>
+                <span class="text-sm font-mono text-[var(--q-state-success)]">+50</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <div>
+                  <div class="text-foreground font-medium">服务费抵扣</div>
+                  <div class="text-xs text-muted-foreground mt-0.5">2025-08-18 00:05</div>
+                </div>
+                <span class="text-sm font-mono text-[var(--q-state-error)]">-50</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){ lucide.createIcons(); });
+
+      const tabBar = document.getElementById('wallet-tab-bar');
+      const tabs = tabBar.querySelectorAll('.tab-btn');
+      const panels = document.querySelectorAll('.tab-panel');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.tab;
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          panels.forEach(p => {
+            if (p.dataset.tabPanel === target) {
+              p.classList.add('active');
+            } else {
+              p.classList.remove('active');
+            }
+          });
+        });
+      });
+
+      const rechargeToggle = document.querySelector('.recharge-toggle');
+      const qrSection = document.getElementById('recharge-qr-section');
+      if (rechargeToggle && qrSection) {
+        rechargeToggle.addEventListener('click', () => {
+          qrSection.classList.toggle('hidden');
+        });
+      }
+
+      document.querySelectorAll('.tab-jump').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = btn.dataset.targetTab;
+          tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === target));
+          panels.forEach(p => p.classList.toggle('active', p.dataset.tabPanel === target));
+        });
+      });
+    </script>
+    <!-- Hidden interaction anchors -->
+    <div class="hidden" aria-hidden="true">
+      <a href="index.html" data-dom-id="nav-home" data-interaction-target="page-index"></a>
+      <a href="strategies.html" data-dom-id="nav-strategies" data-interaction-target="page-strategies"></a>
+      <a href="community.html" data-dom-id="nav-community" data-interaction-target="page-community"></a>
+      <a href="profile.html" data-dom-id="nav-profile" data-interaction-target="page-profile"></a>
+    </div>
+
+    <!-- Bottom Tab Navigation -->
+    <nav data-mobile-nav="global" class="fixed bottom-0 left-0 z-50 w-full bg-[#14141A]/95 backdrop-blur border-t border-white/5 h-[56px] safe-bottom">
+      <div class="w-full max-w-md mx-auto grid grid-cols-6 h-full">
+      <a href="index.html" data-nav-key="home" data-dom-id="nav-home" class="min-w-0 flex flex-col items-center justify-center gap-0.5 px-1 h-full text-[#777784]"><i data-lucide="home" class="w-5 h-5 shrink-0"></i><span class="text-[11px] leading-none whitespace-nowrap max-w-full truncate">首页</span></a>
+      <a href="market.html" data-nav-key="market" data-dom-id="nav-market" class="min-w-0 flex flex-col items-center justify-center gap-0.5 px-1 h-full text-[#777784]"><i data-lucide="line-chart" class="w-5 h-5 shrink-0"></i><span class="text-[11px] leading-none whitespace-nowrap max-w-full truncate">行情</span></a>
+      <a href="strategies.html" data-nav-key="strategies" data-dom-id="nav-strategies" class="min-w-0 flex flex-col items-center justify-center gap-0.5 px-1 h-full text-[#777784]"><i data-lucide="bot" class="w-5 h-5 shrink-0"></i><span class="text-[11px] leading-none whitespace-nowrap max-w-full truncate">AI 策略</span></a>
+      <a href="accounts.html" data-nav-key="accounts" data-dom-id="nav-accounts" class="min-w-0 flex flex-col items-center justify-center gap-0.5 px-1 h-full text-[#777784]"><i data-lucide="credit-card" class="w-5 h-5 shrink-0"></i><span class="text-[11px] leading-none whitespace-nowrap max-w-full truncate">交易账号</span></a>
+      <a href="community.html" data-nav-key="community" data-dom-id="nav-community" class="min-w-0 flex flex-col items-center justify-center gap-0.5 px-1 h-full text-[#777784]"><i data-lucide="users" class="w-5 h-5 shrink-0"></i><span class="text-[11px] leading-none whitespace-nowrap max-w-full truncate">团队</span></a>
+      <a href="profile.html" data-nav-key="profile" data-active="true" class="min-w-0 flex flex-col items-center justify-center gap-0.5 px-1 h-full text-[#00d4aa] font-medium"><i data-lucide="user" class="w-5 h-5 shrink-0"></i><span class="text-[11px] leading-none whitespace-nowrap max-w-full truncate">我的</span></a></div>
+    </nav>
+
+  <!-- icon-render-guarantee: render all icons after full DOM parse (covers bottom nav) -->
+  <script>document.addEventListener('DOMContentLoaded', function(){ if (window.lucide) lucide.createIcons(); });</script>
+</body>
+</html>
+

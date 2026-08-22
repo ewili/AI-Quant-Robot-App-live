@@ -1,0 +1,454 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <style id="theme-vars">
+:root {
+  --q-primary-50: #e6fffa;
+  --q-primary-100: #b2f5ea;
+  --q-primary-200: #81e6d9;
+  --q-primary-300: #4fd1c5;
+  --q-primary-400: #38b2ac;
+  --q-primary-500: #00d4aa;
+  --q-primary-600: #00b894;
+  --q-primary-700: #00997a;
+  --q-primary-800: #007a61;
+  --q-primary-900: #005c49;
+  --q-neutral-0: #ffffff;
+  --q-neutral-50: #f7f7f8;
+  --q-neutral-100: #ececee;
+  --q-neutral-200: #d4d4d9;
+  --q-neutral-300: #a5a5af;
+  --q-neutral-400: #777784;
+  --q-neutral-500: #555560;
+  --q-neutral-600: #3e3e48;
+  --q-neutral-700: #282830;
+  --q-neutral-800: #1a1a20;
+  --q-neutral-900: #0b0b0f;
+  --q-state-success: #22c55e;
+  --q-state-warning: #f59e0b;
+  --q-state-error: #ef4444;
+  --q-state-info: #3b82f6;
+  --q-background: var(--q-neutral-900);
+  --q-foreground: var(--q-neutral-0);
+  --q-card: var(--q-neutral-800);
+  --q-card-foreground: var(--q-neutral-0);
+  --q-popover: var(--q-neutral-800);
+  --q-popover-foreground: var(--q-neutral-0);
+  --q-primary: var(--q-primary-500);
+  --q-primary-foreground: var(--q-neutral-900);
+  --q-secondary: var(--q-neutral-700);
+  --q-secondary-foreground: var(--q-neutral-0);
+  --q-muted: var(--q-neutral-700);
+  --q-muted-foreground: var(--q-neutral-400);
+  --q-accent: var(--q-primary-500);
+  --q-accent-foreground: var(--q-neutral-900);
+  --q-border: rgba(255, 255, 255, 0.08);
+  --q-input: rgba(255, 255, 255, 0.08);
+  --q-ring: var(--q-primary-500);
+  --q-radius-small: 4px;
+  --q-radius-medium: 8px;
+  --q-radius-large: 12px;
+  --q-radius-full: 9999px;
+}
+html, body {
+  font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  background-color: var(--q-background);
+  color: var(--q-foreground);
+  -webkit-font-smoothing: antialiased;
+}
+.font-mono { font-family: "SF Mono", "JetBrains Mono", Consolas, monospace; font-variant-numeric: tabular-nums; }
+.safe-top { padding-top: env(safe-area-inset-top, 0px); }
+.input-field {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--q-neutral-800);
+  border: 1px solid var(--q-border);
+  color: var(--q-foreground);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.input-field:focus { border-color: var(--q-primary); box-shadow: 0 0 0 2px rgba(0, 212, 170, 0.15); }
+.input-field::placeholder { color: var(--q-neutral-400); }
+.input-field:disabled { opacity: 0.6; cursor: not-allowed; background: var(--q-neutral-700); }
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--q-primary);
+  color: var(--q-neutral-900);
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.btn-primary:hover { opacity: 0.92; }
+.btn-code {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--q-neutral-700);
+  color: var(--q-foreground);
+  font-size: 13px;
+  border: 1px solid var(--q-border);
+  white-space: nowrap;
+  cursor: pointer;
+}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style id="critical-layout">
+      *, *::before, *::after { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; }
+      .auth-shell { max-width: 448px; margin: 0 auto; min-height: 100vh; }
+    </style>
+
+<style id="light-theme-override">
+html.light {
+  /* Brand primary: blue */
+  --q-primary-50: #eff6ff;
+  --q-primary-100: #dbeafe;
+  --q-primary-200: #bfdbfe;
+  --q-primary-300: #93c5fd;
+  --q-primary-400: #60a5fa;
+  --q-primary-500: #3b82f6;
+  --q-primary-600: #2563eb;
+  --q-primary-700: #1d4ed8;
+  --q-primary-800: #1e40af;
+  --q-primary-900: #1e3a8a;
+
+  /* Neutral slate */
+  --q-neutral-0: #ffffff;
+  --q-neutral-50: #f8fafc;
+  --q-neutral-100: #f1f5f9;
+  --q-neutral-200: #e2e8f0;
+  --q-neutral-300: #cbd5e1;
+  --q-neutral-400: #94a3b8;
+  --q-neutral-500: #64748b;
+  --q-neutral-600: #475569;
+  --q-neutral-700: #334155;
+  --q-neutral-800: #1e293b;
+  --q-neutral-900: #0f172a;
+
+  /* Semantic aliases */
+  --q-background: var(--q-neutral-0);
+  --q-foreground: var(--q-neutral-900);
+  --q-card: var(--q-neutral-0);
+  --q-card-foreground: var(--q-neutral-900);
+  --q-popover: var(--q-neutral-0);
+  --q-popover-foreground: var(--q-neutral-900);
+  --q-primary: var(--q-primary-500);
+  --q-primary-foreground: var(--q-neutral-0);
+  --q-secondary: var(--q-neutral-100);
+  --q-secondary-foreground: var(--q-neutral-900);
+  --q-muted: var(--q-neutral-100);
+  --q-muted-foreground: var(--q-neutral-500);
+  --q-accent: var(--q-primary-500);
+  --q-accent-foreground: var(--q-neutral-0);
+  --q-border: rgba(15, 23, 42, 0.08);
+  --q-input: rgba(15, 23, 42, 0.08);
+  --q-ring: var(--q-primary-500);
+
+  /* Tailwind @theme inline tokens redefined for light mode */
+  --color-background: var(--q-background);
+  --color-foreground: var(--q-foreground);
+  --color-card: var(--q-card);
+  --color-card-foreground: var(--q-card-foreground);
+  --color-popover: var(--q-popover);
+  --color-popover-foreground: var(--q-popover-foreground);
+  --color-primary: var(--q-primary);
+  --color-primary-foreground: var(--q-primary-foreground);
+  --color-secondary: var(--q-secondary);
+  --color-secondary-foreground: var(--q-secondary-foreground);
+  --color-muted: var(--q-muted);
+  --color-muted-foreground: var(--q-muted-foreground);
+  --color-accent: var(--q-accent);
+  --color-accent-foreground: var(--q-accent-foreground);
+  --color-border: var(--q-border);
+  --color-input: var(--q-input);
+  --color-ring: var(--q-ring);
+
+  /* Legacy aliases */
+  --bg: var(--q-background);
+  --surface: var(--q-card);
+  --surface-2: var(--q-neutral-100);
+  --ink: var(--q-foreground);
+  --ink-2: var(--q-neutral-500);
+  --ink-3: var(--q-neutral-400);
+  --line: var(--q-border);
+  --brand: var(--q-primary);
+  --brand-ink: var(--q-primary-foreground);
+
+  /* Shadows */
+  --shadow-1: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 1px rgba(15, 23, 42, 0.04);
+  --shadow-2: 0 8px 24px -8px rgba(15, 23, 42, 0.12);
+  --shadow-3: 0 24px 60px -20px rgba(15, 23, 42, 0.16); }
+}
+
+/* Tailwind semantic utility insurance overrides */
+html.light .bg-background { background-color: var(--q-neutral-0) !important; }
+html.light .bg-background\/95 { background-color: rgba(255, 255, 255, 0.95) !important; }
+html.light .bg-background\/90 { background-color: rgba(255, 255, 255, 0.90) !important; }
+html.light .bg-card { background-color: var(--q-neutral-0) !important; }
+html.light .bg-card-foreground { background-color: var(--q-neutral-900) !important; }
+html.light .bg-popover { background-color: var(--q-neutral-0) !important; }
+html.light .bg-muted { background-color: var(--q-neutral-100) !important; }
+html.light .bg-secondary { background-color: var(--q-neutral-100) !important; }
+html.light .bg-primary { background-color: var(--q-primary-500) !important; }
+html.light .bg-primary-foreground { background-color: var(--q-neutral-0) !important; }
+html.light .bg-accent { background-color: var(--q-primary-500) !important; }
+html.light .text-foreground { color: var(--q-neutral-900) !important; }
+html.light .text-card-foreground { color: var(--q-neutral-900) !important; }
+html.light .text-popover-foreground { color: var(--q-neutral-900) !important; }
+html.light .text-primary { color: var(--q-primary-500) !important; }
+html.light .text-primary-foreground { color: var(--q-neutral-0) !important; }
+html.light .text-secondary-foreground { color: var(--q-neutral-900) !important; }
+html.light .text-muted-foreground { color: var(--q-neutral-500) !important; }
+html.light .text-accent-foreground { color: var(--q-neutral-0) !important; }
+html.light .text-muted { color: var(--q-neutral-500) !important; }
+html.light .border-border { border-color: var(--q-border) !important; }
+html.light .border-input { border-color: var(--q-input) !important; }
+html.light .ring-ring { --tw-ring-color: var(--q-ring) !important; }
+
+html.light .brand-gradient {
+  background: linear-gradient(135deg, var(--q-primary-500) 0%, var(--q-primary-700) 100%);
+}
+
+/* --- Dark-to-light utility overrides --- */
+html.light [class~="bg-[#0b0b0f]"] { background-color: #ffffff !important; }
+html.light [class~="bg-[#0b0b0f]/95"] { background-color: rgba(255, 255, 255, 0.95) !important; }
+html.light [class~="bg-[#14141A]"] { background-color: #ffffff !important; }
+html.light [class~="bg-[#14141A]/95"] { background-color: rgba(255, 255, 255, 0.95) !important; }
+html.light [class~="bg-[#1a1a20]"] { background-color: #ffffff !important; }
+html.light [class~="bg-[#1a1a20]/95"] { background-color: rgba(255, 255, 255, 0.95) !important; }
+html.light [class~="bg-[#15151a]"] { background-color: #f8fafc !important; }
+html.light [class~="bg-[#282830]"] { background-color: #f1f5f9 !important; }
+html.light [class~="bg-[#202028]"] { background-color: #f8fafc !important; }
+html.light [class~="bg-[#32323a]"] { background-color: #e2e8f0 !important; }
+html.light [class~="bg-[#777784]"] { background-color: #e2e8f0 !important; }
+html.light [class~="bg-[#00e0b5]"] { background-color: #3b82f6 !important; }
+html.light [class~="bg-[#00b894]"] { background-color: #2563eb !important; }
+html.light [class~="bg-[rgba(0,212,170,0.10)]"] { background-color: rgba(59, 130, 246, 0.10) !important; }
+html.light [class~="bg-[rgba(0,212,170,0.10)]/60"] { background-color: rgba(59, 130, 246, 0.06) !important; }
+
+html.light [class~="text-white"] { color: #0f172a !important; }
+html.light [class~="text-[#0b0b0f]"] { color: #ffffff !important; }
+html.light [class~="text-[#ffffff]"] { color: #0f172a !important; }
+html.light [class~="text-[#d4d4d9]"] { color: #64748b !important; }
+html.light [class~="text-[#777784]"] { color: #94a3b8 !important; }
+html.light [class~="text-[#555560]"] { color: #64748b !important; }
+html.light [class~="text-[#3e3e48]"] { color: #475569 !important; }
+html.light [class~="text-[#a5a5af]"] { color: #94a3b8 !important; }
+html.light [class~="text-[#00e6b8]"] { color: #2563eb !important; }
+
+html.light [class~="border-white/5"] { border-color: rgba(15, 23, 42, 0.05) !important; }
+html.light [class~="border-white/8"] { border-color: rgba(15, 23, 42, 0.08) !important; }
+html.light [class~="border-white/10"] { border-color: rgba(15, 23, 42, 0.10) !important; }
+html.light [class~="border-white/20"] { border-color: rgba(15, 23, 42, 0.20) !important; }
+
+html.light [class~="bg-white/5"] { background-color: rgba(15, 23, 42, 0.05) !important; }
+html.light [class~="bg-white/8"] { background-color: rgba(15, 23, 42, 0.08) !important; }
+html.light [class~="bg-white/10"] { background-color: rgba(15, 23, 42, 0.10) !important; }
+html.light [class~="bg-white/20"] { background-color: rgba(15, 23, 42, 0.20) !important; }
+
+html.light .hover\:bg-white\/5:hover { background-color: rgba(15, 23, 42, 0.05) !important; }
+html.light .hover\:bg-white\/8:hover { background-color: rgba(15, 23, 42, 0.08) !important; }
+html.light .hover\:bg-white\/10:hover { background-color: rgba(15, 23, 42, 0.10) !important; }
+html.light .hover\:bg-\[\#202028\]:hover { background-color: #f8fafc !important; }
+html.light .hover\:bg-\[\#32323a\]:hover { background-color: #e2e8f0 !important; }
+
+/* Teal-to-blue accents */
+html.light [class~="bg-[#00d4aa]"] { background-color: #3b82f6 !important; }
+html.light [class~="bg-[#00d4aa]/5"] { background-color: rgba(59, 130, 246, 0.05) !important; }
+html.light [class~="bg-[#00d4aa]/8"] { background-color: rgba(59, 130, 246, 0.08) !important; }
+html.light [class~="bg-[#00d4aa]/10"] { background-color: rgba(59, 130, 246, 0.10) !important; }
+html.light [class~="bg-[#00d4aa]/12"] { background-color: rgba(59, 130, 246, 0.12) !important; }
+html.light [class~="bg-[#00d4aa]/15"] { background-color: rgba(59, 130, 246, 0.15) !important; }
+html.light [class~="bg-[#00d4aa]/20"] { background-color: rgba(59, 130, 246, 0.20) !important; }
+html.light [class~="text-[#00d4aa]"] { color: #3b82f6 !important; }
+html.light [class~="ring-[#00d4aa]"] { --tw-ring-color: #3b82f6 !important; }
+html.light [class~="border-[#00d4aa]"] { border-color: #3b82f6 !important; }
+html.light [class~="border-[#0b0b0f]"] { border-color: rgba(15, 23, 42, 0.08) !important; }
+html.light [class~="border-[#d4d4d9]"] { border-color: rgba(15, 23, 42, 0.15) !important; }
+
+html.light .hover\:bg-\[\#00b894\]:hover { background-color: #2563eb !important; }
+html.light .hover\:text-\[\#00b894\]:hover { color: #2563eb !important; }
+
+html.light [class~="ring-[#0b0b0f]"] { --tw-ring-color: #ffffff !important; }
+html.light [class~="ring-white"] { --tw-ring-color: #0f172a !important; }
+
+/* Specific gradient overrides */
+html.light [class*="bg-gradient-to-br"][class*="from-[#1a1a20]"][class*="to-[#15151a]"] {
+  background-image: linear-gradient(to bottom right, #ffffff, #f8fafc) !important;
+}
+html.light [class*="bg-gradient-to-r"][class*="from-[#1a1a20]"][class*="to-[#15151a]"] {
+  background-image: linear-gradient(to right, #ffffff, #f8fafc) !important;
+}
+
+/* Form controls on light theme */
+html.light .input-field,
+html.light .select-field {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #0f172a !important;
+}
+html.light .input-field::placeholder { color: #94a3b8 !important; }
+html.light .select-field { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important; }
+html.light .btn-primary { color: #ffffff !important; }
+html.light .btn-code {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+/* Scrollbar */
+html.light ::-webkit-scrollbar-thumb { background: var(--q-neutral-300); }
+</style>
+<script id="theme-controller">
+(function(){
+  var root = document.documentElement;
+  var KEY = 'app-theme';
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      root.classList.add('light');
+      root.classList.remove('dark');
+    } else {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    }
+  }
+  function updateLabel(theme) {
+    document.querySelectorAll('[data-theme-label]').forEach(function(el){
+      el.textContent = theme === 'light' ? '浅色' : '深色';
+    });
+  }
+  function readTheme() {
+    var v = null;
+    try { v = sessionStorage.getItem(KEY); } catch(e) {}
+    if (!v) { try { v = localStorage.getItem(KEY); } catch(e) {} }
+    return v === 'light' ? 'light' : 'dark';
+  }
+  function writeTheme(theme) {
+    try { sessionStorage.setItem(KEY, theme); } catch(e) {}
+    try { localStorage.setItem(KEY, theme); } catch(e) {}
+    var d = new Date();
+    d.setTime(d.getTime() + 365*24*60*60*1000);
+    try { document.cookie = KEY + '=' + theme + ';path=/;expires=' + d.toUTCString(); } catch(e) {}
+  }
+  var current = readTheme();
+  applyTheme(current);
+  updateLabel(current);
+  window.toggleAppTheme = function() {
+    var next = root.classList.contains('light') ? 'dark' : 'light';
+    applyTheme(next);
+    updateLabel(next);
+    writeTheme(next);
+  };
+  window.addEventListener('storage', function(e) {
+    if (e.key === KEY && e.newValue) {
+      applyTheme(e.newValue);
+      updateLabel(e.newValue);
+    }
+  });
+})();
+</script>
+
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <div class="auth-shell px-5 pt-10 pb-28">
+        <header class="flex items-center gap-3 mb-8 safe-top">
+            <a href="login.html" data-dom-id="back-button" class="p-2 -ml-2 rounded-full hover:bg-white/5 transition-colors" aria-label="返回登录">
+                <i data-lucide="chevron-left" class="w-6 h-6 text-[#d4d4d9]"></i>
+            </a>
+            <h1 class="text-xl font-semibold text-white">注册账号</h1>
+        </header>
+
+        <form class="space-y-5" onsubmit="return false;">
+            <div>
+                <label class="block text-sm text-[#d4d4d9] mb-2">邀请码 <span class="text-[var(--q-state-error)]">*</span></label>
+                <input type="text" class="input-field" value="AILI2026" disabled placeholder="请输入有效邀请码">
+                <p class="mt-1.5 text-xs text-[#777784]">通过邀请链接进入，邀请码已自动锁定，不可修改。</p>
+            </div>
+
+            <div>
+                <label class="block text-sm text-[#d4d4d9] mb-2">邮箱 <span class="text-[var(--q-state-error)]">*</span></label>
+                <input type="email" class="input-field" placeholder="请输入邮箱地址">
+            </div>
+
+            <div>
+                <label class="block text-sm text-[#d4d4d9] mb-2">邮箱验证码 <span class="text-[var(--q-state-error)]">*</span></label>
+                <div class="flex items-center gap-3">
+                    <input type="text" maxlength="6" class="input-field font-mono" placeholder="6 位验证码">
+                    <button type="button" class="btn-code" id="send-code-btn" data-dom-id="register-send-code">获取验证码</button>
+                    </div>
+                    <p class="mt-1.5 text-xs text-[#777784]">每个邮箱每日最多获取 5 次验证码，两次发送间隔不少于 60 秒。</p>
+                </div>
+
+            <div>
+                <label class="block text-sm text-[#d4d4d9] mb-2">登录密码 <span class="text-[var(--q-state-error)]">*</span></label>
+                <input type="password" class="input-field" placeholder="8-20 位字母与数字组合">
+            </div>
+
+            <div>
+                <label class="block text-sm text-[#d4d4d9] mb-2">确认登录密码 <span class="text-[var(--q-state-error)]">*</span></label>
+                <input type="password" class="input-field" placeholder="请再次输入登录密码">
+            </div>
+
+            <div>
+                <label class="block text-sm text-[#d4d4d9] mb-2">支付密码 <span class="text-[var(--q-state-error)]">*</span></label>
+                <input type="password" maxlength="6" class="input-field font-mono" placeholder="6 位数字">
+                <p class="mt-1.5 text-xs text-[#777784]">用于提现与购买，请与登录密码区分。</p>
+            </div>
+
+            <label class="flex items-start gap-2 text-xs text-[#777784] cursor-pointer">
+                <input type="checkbox" class="mt-0.5 w-4 h-4 accent-primary rounded border-border bg-secondary shrink-0">
+                <span>我已阅读并同意《用户协议》与《隐私政策》</span>
+            </label>
+
+            <button type="button" data-dom-id="register-submit" class="btn-primary">注册</button>
+        </form>
+
+        <div class="mt-8 text-center text-sm text-[#777784]">
+            已有账号？
+            <a href="login.html" data-dom-id="register-login-link" class="text-[#00d4aa] font-medium hover:underline">去登录</a>
+        </div>
+    </div>
+    <script>
+  lucide.createIcons();
+  (function () {
+    var btn = document.getElementById('send-code-btn');
+    if (!btn) return;
+    var COOLDOWN = 60, DAILY_LIMIT = 5;
+    var remaining = 0, timer = null, count = 0;
+    function tick() {
+      remaining--;
+      if (remaining <= 0) {
+        clearInterval(timer); timer = null;
+        btn.disabled = false;
+        btn.textContent = '获取验证码';
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+      } else {
+        btn.textContent = remaining + 's 后重发';
+      }
+    }
+    btn.addEventListener('click', function () {
+      if (remaining > 0) return;
+      if (count >= DAILY_LIMIT) {
+        btn.textContent = '今日次数已用完';
+        return;
+      }
+      count++;
+      remaining = COOLDOWN;
+      btn.disabled = true;
+      btn.classList.add('opacity-50', 'cursor-not-allowed');
+      btn.textContent = remaining + 's 后重发';
+      timer = setInterval(tick, 1000);
+    });
+  })();
+  </script>
+</body>
+</html>

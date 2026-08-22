@@ -1,0 +1,802 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>账号详情</title>
+    <style id="theme-vars">
+:root {
+  /* Brand primary: cyan-teal */
+  --q-primary-50: #e6fffa;
+  --q-primary-100: #b2f5ea;
+  --q-primary-200: #81e6d9;
+  --q-primary-300: #4fd1c5;
+  --q-primary-400: #38b2ac;
+  --q-primary-500: #00d4aa;
+  --q-primary-600: #00b894;
+  --q-primary-700: #00997a;
+  --q-primary-800: #007a61;
+  --q-primary-900: #005c49;
+
+  /* Neutral scale */
+  --q-neutral-0: #ffffff;
+  --q-neutral-50: #f7f7f8;
+  --q-neutral-100: #ececee;
+  --q-neutral-200: #d4d4d9;
+  --q-neutral-300: #a5a5af;
+  --q-neutral-400: #777784;
+  --q-neutral-500: #555560;
+  --q-neutral-600: #3e3e48;
+  --q-neutral-700: #282830;
+  --q-neutral-800: #1a1a20;
+  --q-neutral-900: #0b0b0f;
+
+  /* State colors */
+  --q-state-success: #22c55e;
+  --q-state-success-bg: rgba(34, 197, 94, 0.12);
+  --q-state-warning: #f59e0b;
+  --q-state-warning-bg: rgba(245, 158, 11, 0.12);
+  --q-state-error: #ef4444;
+  --q-state-error-bg: rgba(239, 68, 68, 0.12);
+  --q-state-info: #3b82f6;
+  --q-state-info-bg: rgba(59, 130, 246, 0.12);
+
+  /* Semantic aliases */
+  --q-background: var(--q-neutral-900);
+  --q-foreground: var(--q-neutral-0);
+  --q-card: var(--q-neutral-800);
+  --q-card-foreground: var(--q-neutral-0);
+  --q-popover: var(--q-neutral-800);
+  --q-popover-foreground: var(--q-neutral-0);
+  --q-primary: var(--q-primary-500);
+  --q-primary-foreground: var(--q-neutral-900);
+  --q-secondary: var(--q-neutral-700);
+  --q-secondary-foreground: var(--q-neutral-0);
+  --q-muted: var(--q-neutral-700);
+  --q-muted-foreground: var(--q-neutral-400);
+  --q-accent: var(--q-primary-500);
+  --q-accent-foreground: var(--q-neutral-900);
+  --q-border: rgba(255, 255, 255, 0.08);
+  --q-input: rgba(255, 255, 255, 0.08);
+  --q-ring: var(--q-primary-500);
+  --q-radius-small: 4px;
+  --q-radius-medium: 8px;
+  --q-radius-large: 12px;
+  --q-radius-full: 9999px;
+
+  /* Legacy aliases for page use */
+  --bg: var(--q-background);
+  --surface: var(--q-card);
+  --surface-2: var(--q-neutral-700);
+  --ink: var(--q-foreground);
+  --ink-2: var(--q-neutral-300);
+  --ink-3: var(--q-neutral-400);
+  --line: var(--q-border);
+  --brand: var(--q-primary);
+  --brand-ink: var(--q-primary-foreground);
+  --state-success: var(--q-state-success);
+  --state-warning: var(--q-state-warning);
+  --state-error: var(--q-state-error);
+  --state-info: var(--q-state-info);
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-pill: 999px;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, 0.15);
+  --shadow-2: 0 8px 24px -8px rgba(0, 0, 0, 0.4);
+  --shadow-3: 0 24px 60px -20px rgba(0, 0, 0, 0.55);
+}
+
+@theme inline {
+  --color-background: var(--q-background);
+  --color-foreground: var(--q-foreground);
+  --color-card: var(--q-card);
+  --color-card-foreground: var(--q-card-foreground);
+  --color-popover: var(--q-popover);
+  --color-popover-foreground: var(--q-popover-foreground);
+  --color-primary: var(--q-primary);
+  --color-primary-foreground: var(--q-primary-foreground);
+  --color-secondary: var(--q-secondary);
+  --color-secondary-foreground: var(--q-secondary-foreground);
+  --color-muted: var(--q-muted);
+  --color-muted-foreground: var(--q-muted-foreground);
+  --color-accent: var(--q-accent);
+  --color-accent-foreground: var(--q-accent-foreground);
+  --color-border: var(--q-border);
+  --color-input: var(--q-input);
+  --color-ring: var(--q-ring);
+  --radius-sm: var(--q-radius-small);
+  --radius-md: var(--q-radius-medium);
+  --radius-lg: var(--q-radius-large);
+  --radius-full: var(--q-radius-full);
+}
+
+/* Base typography */
+html,
+body {
+  font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  background-color: var(--q-background);
+  color: var(--q-foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-mono {
+  font-family: "SF Mono", "JetBrains Mono", Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Safe area helpers for mobile mockups */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Gradient accents (same-hue only) */
+.brand-gradient {
+  background: linear-gradient(135deg, var(--q-primary-500) 0%, var(--q-primary-700) 100%);
+}
+
+/* Custom scrollbar for desktop preview */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--q-neutral-600);
+  border-radius: 2px;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--q-background);
+    --color-foreground: var(--q-foreground);
+    --color-card: var(--q-card);
+    --color-card-foreground: var(--q-card-foreground);
+    --color-popover: var(--q-popover);
+    --color-popover-foreground: var(--q-popover-foreground);
+    --color-primary: var(--q-primary);
+    --color-primary-foreground: var(--q-primary-foreground);
+    --color-secondary: var(--q-secondary);
+    --color-secondary-foreground: var(--q-secondary-foreground);
+    --color-muted: var(--q-muted);
+    --color-muted-foreground: var(--q-muted-foreground);
+    --color-accent: var(--q-accent);
+    --color-accent-foreground: var(--q-accent-foreground);
+    --color-border: var(--q-border);
+    --color-input: var(--q-input);
+    --color-ring: var(--q-ring);
+    --radius-sm: var(--q-radius-small);
+    --radius-md: var(--q-radius-medium);
+    --radius-lg: var(--q-radius-large);
+    --radius-full: var(--q-radius-full);
+  }
+  @layer base {
+    body { background: var(--q-background); color: var(--q-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--q-background); }
+      .text-background { color: var(--q-background); }
+      .border-background { border-color: var(--q-background); }
+      .ring-background { --tw-ring-color: var(--q-background); }
+      .bg-foreground { background-color: var(--q-foreground); }
+      .text-foreground { color: var(--q-foreground); }
+      .border-foreground { border-color: var(--q-foreground); }
+      .ring-foreground { --tw-ring-color: var(--q-foreground); }
+      .bg-card { background-color: var(--q-card); }
+      .text-card { color: var(--q-card); }
+      .border-card { border-color: var(--q-card); }
+      .ring-card { --tw-ring-color: var(--q-card); }
+      .bg-card-foreground { background-color: var(--q-card-foreground); }
+      .text-card-foreground { color: var(--q-card-foreground); }
+      .border-card-foreground { border-color: var(--q-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--q-card-foreground); }
+      .bg-popover { background-color: var(--q-popover); }
+      .text-popover { color: var(--q-popover); }
+      .border-popover { border-color: var(--q-popover); }
+      .ring-popover { --tw-ring-color: var(--q-popover); }
+      .bg-popover-foreground { background-color: var(--q-popover-foreground); }
+      .text-popover-foreground { color: var(--q-popover-foreground); }
+      .border-popover-foreground { border-color: var(--q-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--q-popover-foreground); }
+      .bg-primary { background-color: var(--q-primary); }
+      .text-primary { color: var(--q-primary); }
+      .border-primary { border-color: var(--q-primary); }
+      .ring-primary { --tw-ring-color: var(--q-primary); }
+      .bg-primary-foreground { background-color: var(--q-primary-foreground); }
+      .text-primary-foreground { color: var(--q-primary-foreground); }
+      .border-primary-foreground { border-color: var(--q-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--q-primary-foreground); }
+      .bg-secondary { background-color: var(--q-secondary); }
+      .text-secondary { color: var(--q-secondary); }
+      .border-secondary { border-color: var(--q-secondary); }
+      .ring-secondary { --tw-ring-color: var(--q-secondary); }
+      .bg-secondary-foreground { background-color: var(--q-secondary-foreground); }
+      .text-secondary-foreground { color: var(--q-secondary-foreground); }
+      .border-secondary-foreground { border-color: var(--q-secondary-foreground); }
+      .ring-secondary-foreground { --tw-ring-color: var(--q-secondary-foreground); }
+      .bg-muted { background-color: var(--q-muted); }
+      .text-muted { color: var(--q-muted); }
+      .border-muted { border-color: var(--q-muted); }
+      .ring-muted { --tw-ring-color: var(--q-muted); }
+      .bg-muted-foreground { background-color: var(--q-muted-foreground); }
+      .text-muted-foreground { color: var(--q-muted-foreground); }
+      .border-muted-foreground { border-color: var(--q-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--q-muted-foreground); }
+      .bg-accent { background-color: var(--q-accent); }
+      .text-accent { color: var(--q-accent); }
+      .border-accent { border-color: var(--q-accent); }
+      .ring-accent { --tw-ring-color: var(--q-accent); }
+      .bg-accent-foreground { background-color: var(--q-accent-foreground); }
+      .text-accent-foreground { color: var(--q-accent-foreground); }
+      .border-accent-foreground { border-color: var(--q-accent-foreground); }
+      .ring-accent-foreground { --tw-ring-color: var(--q-accent-foreground); }
+      .bg-border { background-color: var(--q-border); }
+      .text-border { color: var(--q-border); }
+      .border-border { border-color: var(--q-border); }
+      .ring-border { --tw-ring-color: var(--q-border); }
+      .bg-input { background-color: var(--q-input); }
+      .text-input { color: var(--q-input); }
+      .border-input { border-color: var(--q-input); }
+      .ring-input { --tw-ring-color: var(--q-input); }
+      .bg-ring { background-color: var(--q-ring); }
+      .text-ring { color: var(--q-ring); }
+      .border-ring { border-color: var(--q-ring); }
+      .ring-ring { --tw-ring-color: var(--q-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+
+<style id="light-theme-override">
+html.light {
+  /* Brand primary: blue */
+  --q-primary-50: #eff6ff;
+  --q-primary-100: #dbeafe;
+  --q-primary-200: #bfdbfe;
+  --q-primary-300: #93c5fd;
+  --q-primary-400: #60a5fa;
+  --q-primary-500: #3b82f6;
+  --q-primary-600: #2563eb;
+  --q-primary-700: #1d4ed8;
+  --q-primary-800: #1e40af;
+  --q-primary-900: #1e3a8a;
+
+  /* Neutral slate */
+  --q-neutral-0: #ffffff;
+  --q-neutral-50: #f8fafc;
+  --q-neutral-100: #f1f5f9;
+  --q-neutral-200: #e2e8f0;
+  --q-neutral-300: #cbd5e1;
+  --q-neutral-400: #94a3b8;
+  --q-neutral-500: #64748b;
+  --q-neutral-600: #475569;
+  --q-neutral-700: #334155;
+  --q-neutral-800: #1e293b;
+  --q-neutral-900: #0f172a;
+
+  /* Semantic aliases */
+  --q-background: var(--q-neutral-0);
+  --q-foreground: var(--q-neutral-900);
+  --q-card: var(--q-neutral-0);
+  --q-card-foreground: var(--q-neutral-900);
+  --q-popover: var(--q-neutral-0);
+  --q-popover-foreground: var(--q-neutral-900);
+  --q-primary: var(--q-primary-500);
+  --q-primary-foreground: var(--q-neutral-0);
+  --q-secondary: var(--q-neutral-100);
+  --q-secondary-foreground: var(--q-neutral-900);
+  --q-muted: var(--q-neutral-100);
+  --q-muted-foreground: var(--q-neutral-500);
+  --q-accent: var(--q-primary-500);
+  --q-accent-foreground: var(--q-neutral-0);
+  --q-border: rgba(15, 23, 42, 0.08);
+  --q-input: rgba(15, 23, 42, 0.08);
+  --q-ring: var(--q-primary-500);
+
+  /* Tailwind @theme inline tokens redefined for light mode */
+  --color-background: var(--q-background);
+  --color-foreground: var(--q-foreground);
+  --color-card: var(--q-card);
+  --color-card-foreground: var(--q-card-foreground);
+  --color-popover: var(--q-popover);
+  --color-popover-foreground: var(--q-popover-foreground);
+  --color-primary: var(--q-primary);
+  --color-primary-foreground: var(--q-primary-foreground);
+  --color-secondary: var(--q-secondary);
+  --color-secondary-foreground: var(--q-secondary-foreground);
+  --color-muted: var(--q-muted);
+  --color-muted-foreground: var(--q-muted-foreground);
+  --color-accent: var(--q-accent);
+  --color-accent-foreground: var(--q-accent-foreground);
+  --color-border: var(--q-border);
+  --color-input: var(--q-input);
+  --color-ring: var(--q-ring);
+
+  /* Legacy aliases */
+  --bg: var(--q-background);
+  --surface: var(--q-card);
+  --surface-2: var(--q-neutral-100);
+  --ink: var(--q-foreground);
+  --ink-2: var(--q-neutral-500);
+  --ink-3: var(--q-neutral-400);
+  --line: var(--q-border);
+  --brand: var(--q-primary);
+  --brand-ink: var(--q-primary-foreground);
+
+  /* Shadows */
+  --shadow-1: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 1px rgba(15, 23, 42, 0.04);
+  --shadow-2: 0 8px 24px -8px rgba(15, 23, 42, 0.12);
+  --shadow-3: 0 24px 60px -20px rgba(15, 23, 42, 0.16); }
+}
+
+/* Tailwind semantic utility insurance overrides */
+html.light .bg-background { background-color: var(--q-neutral-0) !important; }
+html.light .bg-background\/95 { background-color: rgba(255, 255, 255, 0.95) !important; }
+html.light .bg-background\/90 { background-color: rgba(255, 255, 255, 0.90) !important; }
+html.light .bg-card { background-color: var(--q-neutral-0) !important; }
+html.light .bg-card-foreground { background-color: var(--q-neutral-900) !important; }
+html.light .bg-popover { background-color: var(--q-neutral-0) !important; }
+html.light .bg-muted { background-color: var(--q-neutral-100) !important; }
+html.light .bg-secondary { background-color: var(--q-neutral-100) !important; }
+html.light .bg-primary { background-color: var(--q-primary-500) !important; }
+html.light .bg-primary-foreground { background-color: var(--q-neutral-0) !important; }
+html.light .bg-accent { background-color: var(--q-primary-500) !important; }
+html.light .text-foreground { color: var(--q-neutral-900) !important; }
+html.light .text-card-foreground { color: var(--q-neutral-900) !important; }
+html.light .text-popover-foreground { color: var(--q-neutral-900) !important; }
+html.light .text-primary { color: var(--q-primary-500) !important; }
+html.light .text-primary-foreground { color: var(--q-neutral-0) !important; }
+html.light .text-secondary-foreground { color: var(--q-neutral-900) !important; }
+html.light .text-muted-foreground { color: var(--q-neutral-500) !important; }
+html.light .text-accent-foreground { color: var(--q-neutral-0) !important; }
+html.light .text-muted { color: var(--q-neutral-500) !important; }
+html.light .border-border { border-color: var(--q-border) !important; }
+html.light .border-input { border-color: var(--q-input) !important; }
+html.light .ring-ring { --tw-ring-color: var(--q-ring) !important; }
+
+html.light .brand-gradient {
+  background: linear-gradient(135deg, var(--q-primary-500) 0%, var(--q-primary-700) 100%);
+}
+
+/* --- Dark-to-light utility overrides --- */
+html.light [class~="bg-[#0b0b0f]"] { background-color: #ffffff !important; }
+html.light [class~="bg-[#0b0b0f]/95"] { background-color: rgba(255, 255, 255, 0.95) !important; }
+html.light [class~="bg-[#14141A]"] { background-color: #ffffff !important; }
+html.light [class~="bg-[#14141A]/95"] { background-color: rgba(255, 255, 255, 0.95) !important; }
+html.light [class~="bg-[#1a1a20]"] { background-color: #ffffff !important; }
+html.light [class~="bg-[#1a1a20]/95"] { background-color: rgba(255, 255, 255, 0.95) !important; }
+html.light [class~="bg-[#15151a]"] { background-color: #f8fafc !important; }
+html.light [class~="bg-[#282830]"] { background-color: #f1f5f9 !important; }
+html.light [class~="bg-[#202028]"] { background-color: #f8fafc !important; }
+html.light [class~="bg-[#32323a]"] { background-color: #e2e8f0 !important; }
+html.light [class~="bg-[#777784]"] { background-color: #e2e8f0 !important; }
+html.light [class~="bg-[#00e0b5]"] { background-color: #3b82f6 !important; }
+html.light [class~="bg-[#00b894]"] { background-color: #2563eb !important; }
+html.light [class~="bg-[rgba(0,212,170,0.10)]"] { background-color: rgba(59, 130, 246, 0.10) !important; }
+html.light [class~="bg-[rgba(0,212,170,0.10)]/60"] { background-color: rgba(59, 130, 246, 0.06) !important; }
+
+html.light [class~="text-white"] { color: #0f172a !important; }
+html.light [class~="text-[#0b0b0f]"] { color: #ffffff !important; }
+html.light [class~="text-[#ffffff]"] { color: #0f172a !important; }
+html.light [class~="text-[#d4d4d9]"] { color: #64748b !important; }
+html.light [class~="text-[#777784]"] { color: #94a3b8 !important; }
+html.light [class~="text-[#555560]"] { color: #64748b !important; }
+html.light [class~="text-[#3e3e48]"] { color: #475569 !important; }
+html.light [class~="text-[#a5a5af]"] { color: #94a3b8 !important; }
+html.light [class~="text-[#00e6b8]"] { color: #2563eb !important; }
+
+html.light [class~="border-white/5"] { border-color: rgba(15, 23, 42, 0.05) !important; }
+html.light [class~="border-white/8"] { border-color: rgba(15, 23, 42, 0.08) !important; }
+html.light [class~="border-white/10"] { border-color: rgba(15, 23, 42, 0.10) !important; }
+html.light [class~="border-white/20"] { border-color: rgba(15, 23, 42, 0.20) !important; }
+
+html.light [class~="bg-white/5"] { background-color: rgba(15, 23, 42, 0.05) !important; }
+html.light [class~="bg-white/8"] { background-color: rgba(15, 23, 42, 0.08) !important; }
+html.light [class~="bg-white/10"] { background-color: rgba(15, 23, 42, 0.10) !important; }
+html.light [class~="bg-white/20"] { background-color: rgba(15, 23, 42, 0.20) !important; }
+
+html.light .hover\:bg-white\/5:hover { background-color: rgba(15, 23, 42, 0.05) !important; }
+html.light .hover\:bg-white\/8:hover { background-color: rgba(15, 23, 42, 0.08) !important; }
+html.light .hover\:bg-white\/10:hover { background-color: rgba(15, 23, 42, 0.10) !important; }
+html.light .hover\:bg-\[\#202028\]:hover { background-color: #f8fafc !important; }
+html.light .hover\:bg-\[\#32323a\]:hover { background-color: #e2e8f0 !important; }
+
+/* Teal-to-blue accents */
+html.light [class~="bg-[#00d4aa]"] { background-color: #3b82f6 !important; }
+html.light [class~="bg-[#00d4aa]/5"] { background-color: rgba(59, 130, 246, 0.05) !important; }
+html.light [class~="bg-[#00d4aa]/8"] { background-color: rgba(59, 130, 246, 0.08) !important; }
+html.light [class~="bg-[#00d4aa]/10"] { background-color: rgba(59, 130, 246, 0.10) !important; }
+html.light [class~="bg-[#00d4aa]/12"] { background-color: rgba(59, 130, 246, 0.12) !important; }
+html.light [class~="bg-[#00d4aa]/15"] { background-color: rgba(59, 130, 246, 0.15) !important; }
+html.light [class~="bg-[#00d4aa]/20"] { background-color: rgba(59, 130, 246, 0.20) !important; }
+html.light [class~="text-[#00d4aa]"] { color: #3b82f6 !important; }
+html.light [class~="ring-[#00d4aa]"] { --tw-ring-color: #3b82f6 !important; }
+html.light [class~="border-[#00d4aa]"] { border-color: #3b82f6 !important; }
+html.light [class~="border-[#0b0b0f]"] { border-color: rgba(15, 23, 42, 0.08) !important; }
+html.light [class~="border-[#d4d4d9]"] { border-color: rgba(15, 23, 42, 0.15) !important; }
+
+html.light .hover\:bg-\[\#00b894\]:hover { background-color: #2563eb !important; }
+html.light .hover\:text-\[\#00b894\]:hover { color: #2563eb !important; }
+
+html.light [class~="ring-[#0b0b0f]"] { --tw-ring-color: #ffffff !important; }
+html.light [class~="ring-white"] { --tw-ring-color: #0f172a !important; }
+
+/* Specific gradient overrides */
+html.light [class*="bg-gradient-to-br"][class*="from-[#1a1a20]"][class*="to-[#15151a]"] {
+  background-image: linear-gradient(to bottom right, #ffffff, #f8fafc) !important;
+}
+html.light [class*="bg-gradient-to-r"][class*="from-[#1a1a20]"][class*="to-[#15151a]"] {
+  background-image: linear-gradient(to right, #ffffff, #f8fafc) !important;
+}
+
+/* Form controls on light theme */
+html.light .input-field,
+html.light .select-field {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #0f172a !important;
+}
+html.light .input-field::placeholder { color: #94a3b8 !important; }
+html.light .select-field { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important; }
+html.light .btn-primary { color: #ffffff !important; }
+html.light .btn-code {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+/* Scrollbar */
+html.light ::-webkit-scrollbar-thumb { background: var(--q-neutral-300); }
+</style>
+<script id="theme-controller">
+(function(){
+  var root = document.documentElement;
+  var KEY = 'app-theme';
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      root.classList.add('light');
+      root.classList.remove('dark');
+    } else {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    }
+  }
+  function updateLabel(theme) {
+    document.querySelectorAll('[data-theme-label]').forEach(function(el){
+      el.textContent = theme === 'light' ? '浅色' : '深色';
+    });
+  }
+  function readTheme() {
+    var v = null;
+    try { v = sessionStorage.getItem(KEY); } catch(e) {}
+    if (!v) { try { v = localStorage.getItem(KEY); } catch(e) {} }
+    return v === 'light' ? 'light' : 'dark';
+  }
+  function writeTheme(theme) {
+    try { sessionStorage.setItem(KEY, theme); } catch(e) {}
+    try { localStorage.setItem(KEY, theme); } catch(e) {}
+    var d = new Date();
+    d.setTime(d.getTime() + 365*24*60*60*1000);
+    try { document.cookie = KEY + '=' + theme + ';path=/;expires=' + d.toUTCString(); } catch(e) {}
+  }
+  var current = readTheme();
+  applyTheme(current);
+  updateLabel(current);
+  window.toggleAppTheme = function() {
+    var next = root.classList.contains('light') ? 'dark' : 'light';
+    applyTheme(next);
+    updateLabel(next);
+    writeTheme(next);
+  };
+  window.addEventListener('storage', function(e) {
+    if (e.key === KEY && e.newValue) {
+      applyTheme(e.newValue);
+      updateLabel(e.newValue);
+    }
+  });
+})();
+</script>
+
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <style id="critical-layout">
+      :root {
+        --page-bg: #0b0b0f;
+        --surface: #1a1a20;
+        --surface-2: #282830;
+        --ink: #ffffff;
+        --ink-2: #d4d4d9;
+        --ink-3: #777784;
+        --brand: #00d4aa;
+        --success: #22c55e;
+        --error: #ef4444;
+        --line: rgba(255, 255, 255, 0.08);
+      }
+      html, body { background: var(--page-bg); color: var(--ink); }
+      .page-root { max-width: 480px; margin: 0 auto; }
+      .tab-btn { flex: 1 1 0; }
+      .tab-btn.active { color: var(--brand); border-color: var(--brand); }
+      .tab-panel { display: none; }
+      .tab-panel.active { display: block; }
+      .chip { border: 1px solid var(--line); }
+      .chip.active { background: rgba(0, 212, 170, 0.12); border-color: var(--brand); color: var(--brand); }
+      .source-badge.manual { background: rgba(59, 130, 246, 0.12); color: #3b82f6; }
+      .source-badge.copy { background: rgba(0, 212, 170, 0.12); color: var(--brand); }
+      .pnl-plus { color: var(--success); }
+      .pnl-minus { color: var(--error); }
+      .list-card { border: 1px solid var(--line); }
+      .data-row { border-bottom: 1px solid var(--line); }
+      .data-row:last-child { border-bottom: none; }
+      .tabular { font-variant-numeric: tabular-nums; }
+    </style>
+    <main class="page-root pb-28" data-node-id="page-account-detail">
+      <!-- Header -->
+      <header class="sticky top-0 z-20 flex items-center gap-3 px-4 py-3" style="background: var(--page-bg); border-bottom: 1px solid var(--line);">
+        <a href="accounts.html" data-dom-id="back-button" data-target="page-accounts" class="inline-flex h-9 w-9 items-center justify-center rounded-lg" style="background: var(--surface); color: var(--ink-2);">
+          <i data-lucide="chevron-left" class="h-5 w-5"></i>
+        </a>
+        <h1 class="text-base font-semibold" style="color: var(--ink);">账号详情</h1>
+      </header>
+
+      <!-- Account summary card -->
+      <section class="mx-4 mt-4 rounded-xl p-4" style="background: var(--surface);">
+        <div class="mb-4 flex items-center justify-between">
+          <span class="text-sm" style="color: var(--ink-3);">账号</span>
+          <span class="text-sm font-medium tabular" style="color: var(--ink);">主账户 #8801</span>
+        </div>
+        <div class="mb-4">
+          <span class="block text-xs" style="color: var(--ink-3);">净值</span>
+          <span class="text-2xl font-bold tabular" style="color: var(--brand);">12,458.32 USDT</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="rounded-lg p-3" style="background: var(--surface-2);">
+            <span class="block text-xs" style="color: var(--ink-3);">可用保证金</span>
+            <span class="text-sm font-semibold tabular" style="color: var(--ink);">4,523.05 USDT</span>
+          </div>
+          <div class="rounded-lg p-3" style="background: var(--surface-2);">
+            <span class="block text-xs" style="color: var(--ink-3);">累计收益</span>
+            <span class="text-sm font-semibold tabular pnl-plus">+1,234.02 USDT</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab switcher -->
+      <div class="mx-4 mt-4 flex" style="border-bottom: 1px solid var(--line);">
+        <button type="button" class="tab-btn active py-3 text-sm font-medium" data-tab="positions">当前持仓</button>
+        <button type="button" class="tab-btn py-3 text-sm font-medium" style="color: var(--ink-3);" data-tab="history">历史订单</button>
+      </div>
+
+      <!-- 当前持仓 panel -->
+      <section id="panel-positions" class="tab-panel active px-4 pb-6 pt-3">
+        <div class="list-card rounded-xl overflow-hidden" style="background: var(--surface);">
+          <!-- Header row -->
+          <div class="grid grid-cols-12 gap-2 px-3 py-2 text-xs" style="color: var(--ink-3); background: var(--surface-2);">
+            <div class="col-span-3">品种</div>
+            <div class="col-span-2 text-center">方向</div>
+            <div class="col-span-2 text-right">手数</div>
+            <div class="col-span-2 text-right">盈亏</div>
+            <div class="col-span-3 text-right">来源</div>
+          </div>
+          <!-- Data rows -->
+          <div class="data-row px-3 py-3">
+            <div class="grid grid-cols-12 gap-2 items-center">
+              <div class="col-span-3">
+                <div class="text-sm font-medium" style="color: var(--ink);">EURUSD</div>
+                <div class="text-xs tabular" style="color: var(--ink-3);">1.0845</div>
+              </div>
+              <div class="col-span-2 text-center">
+                <span class="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs font-medium" style="background: rgba(34, 197, 94, 0.12); color: var(--success);">
+                  <i data-lucide="arrow-up" class="h-3 w-3"></i>买
+                </span>
+              </div>
+              <div class="col-span-2 text-right text-sm tabular" style="color: var(--ink);">0.50</div>
+              <div class="col-span-2 text-right text-sm font-semibold tabular pnl-plus">+86.50 USDT</div>
+              <div class="col-span-3 text-right">
+                <span class="source-badge copy inline-flex items-center rounded px-1.5 py-0.5 text-xs">策略跟单</span>
+              </div>
+            </div>
+            <div class="mt-2 flex justify-between text-xs" style="color: var(--ink-3);">
+              <span>开仓价 <span class="tabular">1.0820</span></span>
+              <span>当前价 <span class="tabular">1.0845</span></span>
+            </div>
+          </div>
+          <div class="data-row px-3 py-3">
+            <div class="grid grid-cols-12 gap-2 items-center">
+              <div class="col-span-3">
+                <div class="text-sm font-medium" style="color: var(--ink);">XAUUSD</div>
+                <div class="text-xs tabular" style="color: var(--ink-3);">2341.80</div>
+              </div>
+              <div class="col-span-2 text-center">
+                <span class="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs font-medium" style="background: rgba(239, 68, 68, 0.12); color: var(--error);">
+                  <i data-lucide="arrow-down" class="h-3 w-3"></i>卖
+                </span>
+              </div>
+              <div class="col-span-2 text-right text-sm tabular" style="color: var(--ink);">0.20</div>
+              <div class="col-span-2 text-right text-sm font-semibold tabular pnl-minus">-124.00 USDT</div>
+              <div class="col-span-3 text-right">
+                <span class="source-badge manual inline-flex items-center rounded px-1.5 py-0.5 text-xs">手动</span>
+              </div>
+            </div>
+            <div class="mt-2 flex justify-between text-xs" style="color: var(--ink-3);">
+              <span>开仓价 <span class="tabular">2350.20</span></span>
+              <span>当前价 <span class="tabular">2341.80</span></span>
+            </div>
+          </div>
+          <div class="data-row px-3 py-3">
+            <div class="grid grid-cols-12 gap-2 items-center">
+              <div class="col-span-3">
+                <div class="text-sm font-medium" style="color: var(--ink);">USDJPY</div>
+                <div class="text-xs tabular" style="color: var(--ink-3);">149.85</div>
+              </div>
+              <div class="col-span-2 text-center">
+                <span class="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs font-medium" style="background: rgba(34, 197, 94, 0.12); color: var(--success);">
+                  <i data-lucide="arrow-up" class="h-3 w-3"></i>买
+                </span>
+              </div>
+              <div class="col-span-2 text-right text-sm tabular" style="color: var(--ink);">1.00</div>
+              <div class="col-span-2 text-right text-sm font-semibold tabular pnl-plus">+210.30 USDT</div>
+              <div class="col-span-3 text-right">
+                <span class="source-badge copy inline-flex items-center rounded px-1.5 py-0.5 text-xs">策略跟单</span>
+              </div>
+            </div>
+            <div class="mt-2 flex justify-between text-xs" style="color: var(--ink-3);">
+              <span>开仓价 <span class="tabular">149.30</span></span>
+              <span>当前价 <span class="tabular">149.85</span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 历史订单 panel -->
+      <section id="panel-history" class="tab-panel px-4 pb-6 pt-3">
+        <!-- Time filter chips -->
+        <div class="mb-3 flex gap-2">
+          <button type="button" class="chip active rounded-full px-3 py-1.5 text-xs font-medium" data-filter="7">近7天</button>
+          <button type="button" class="chip rounded-full px-3 py-1.5 text-xs font-medium" style="color: var(--ink-2);" data-filter="30">近30天</button>
+          <button type="button" class="chip rounded-full px-3 py-1.5 text-xs font-medium" style="color: var(--ink-2);" data-filter="all">全部</button>
+        </div>
+
+        <div class="list-card rounded-xl overflow-hidden" style="background: var(--surface);">
+          <!-- Header row -->
+          <div class="grid grid-cols-12 gap-2 px-3 py-2 text-xs" style="color: var(--ink-3); background: var(--surface-2);">
+            <div class="col-span-3">品种</div>
+            <div class="col-span-2 text-center">方向</div>
+            <div class="col-span-2 text-right">手数</div>
+            <div class="col-span-2 text-right">盈亏</div>
+            <div class="col-span-3 text-right">时间</div>
+          </div>
+          <!-- Data rows -->
+          <div class="data-row px-3 py-3">
+            <div class="grid grid-cols-12 gap-2 items-center">
+              <div class="col-span-3">
+                <div class="text-sm font-medium" style="color: var(--ink);">GBPUSD</div>
+              </div>
+              <div class="col-span-2 text-center">
+                <span class="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs font-medium" style="background: rgba(34, 197, 94, 0.12); color: var(--success);">
+                  <i data-lucide="arrow-up" class="h-3 w-3"></i>买
+                </span>
+              </div>
+              <div class="col-span-2 text-right text-sm tabular" style="color: var(--ink);">0.30</div>
+              <div class="col-span-2 text-right text-sm font-semibold tabular pnl-plus">+152.40 USDT</div>
+              <div class="col-span-3 text-right text-xs tabular" style="color: var(--ink-3);">08-15 14:32</div>
+            </div>
+            <div class="mt-2 flex justify-between text-xs" style="color: var(--ink-3);">
+              <span>开 <span class="tabular">1.2720</span></span>
+              <span>平 <span class="tabular">1.2758</span></span>
+            </div>
+          </div>
+          <div class="data-row px-3 py-3">
+            <div class="grid grid-cols-12 gap-2 items-center">
+              <div class="col-span-3">
+                <div class="text-sm font-medium" style="color: var(--ink);">USOIL</div>
+              </div>
+              <div class="col-span-2 text-center">
+                <span class="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs font-medium" style="background: rgba(239, 68, 68, 0.12); color: var(--error);">
+                  <i data-lucide="arrow-down" class="h-3 w-3"></i>卖
+                </span>
+              </div>
+              <div class="col-span-2 text-right text-sm tabular" style="color: var(--ink);">0.10</div>
+              <div class="col-span-2 text-right text-sm font-semibold tabular pnl-minus">-89.20 USDT</div>
+              <div class="col-span-3 text-right text-xs tabular" style="color: var(--ink-3);">08-14 09:18</div>
+            </div>
+            <div class="mt-2 flex justify-between text-xs" style="color: var(--ink-3);">
+              <span>开 <span class="tabular">78.50</span></span>
+              <span>平 <span class="tabular">79.35</span></span>
+            </div>
+          </div>
+          <div class="data-row px-3 py-3">
+            <div class="grid grid-cols-12 gap-2 items-center">
+              <div class="col-span-3">
+                <div class="text-sm font-medium" style="color: var(--ink);">BTCUSD</div>
+              </div>
+              <div class="col-span-2 text-center">
+                <span class="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs font-medium" style="background: rgba(34, 197, 94, 0.12); color: var(--success);">
+                  <i data-lucide="arrow-up" class="h-3 w-3"></i>买
+                </span>
+              </div>
+              <div class="col-span-2 text-right text-sm tabular" style="color: var(--ink);">0.05</div>
+              <div class="col-span-2 text-right text-sm font-semibold tabular pnl-plus">+320.00 USDT</div>
+              <div class="col-span-3 text-right text-xs tabular" style="color: var(--ink-3);">08-12 21:05</div>
+            </div>
+            <div class="mt-2 flex justify-between text-xs" style="color: var(--ink-3);">
+              <span>开 <span class="tabular">60210</span></span>
+              <span>平 <span class="tabular">61450</span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script>
+      (function () {
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panels = document.querySelectorAll('.tab-panel');
+        tabs.forEach(function (tab) {
+          tab.addEventListener('click', function () {
+            const key = tab.dataset.tab;
+            tabs.forEach(function (t) { t.classList.remove('active'); });
+            panels.forEach(function (p) { p.classList.remove('active'); });
+            tab.classList.add('active');
+            const panel = document.getElementById('panel-' + key);
+            if (panel) panel.classList.add('active');
+            window.lucide && window.document.addEventListener('DOMContentLoaded', function(){ lucide.createIcons(); });
+          });
+        });
+
+        const chips = document.querySelectorAll('[data-filter]');
+        chips.forEach(function (chip) {
+          chip.addEventListener('click', function () {
+            chips.forEach(function (c) { c.classList.remove('active'); });
+            chip.classList.add('active');
+          });
+        });
+
+        window.lucide && window.lucide.createIcons();
+      })();
+    </script>
+    <!-- Hidden interaction anchors -->
+    <div class="hidden" aria-hidden="true">
+      <a href="index.html" data-dom-id="nav-home" data-interaction-target="page-index"></a>
+      <a href="strategies.html" data-dom-id="nav-strategies" data-interaction-target="page-strategies"></a>
+      <a href="community.html" data-dom-id="nav-community" data-interaction-target="page-community"></a>
+      <a href="profile.html" data-dom-id="nav-profile" data-interaction-target="page-profile"></a>
+    </div>
+
+    <!-- Bottom Tab Navigation -->
+    <nav data-mobile-nav="global" class="fixed bottom-0 left-0 z-50 w-full bg-[#14141A]/95 backdrop-blur border-t border-white/5 h-[56px] safe-bottom">
+      <div class="w-full max-w-md mx-auto grid grid-cols-6 h-full">
+      <a href="index.html" data-nav-key="home" data-dom-id="nav-home" class="min-w-0 flex flex-col items-center justify-center gap-0.5 px-1 h-full text-[#777784]"><i data-lucide="home" class="w-5 h-5 shrink-0"></i><span class="text-[11px] leading-none whitespace-nowrap max-w-full truncate">首页</span></a>
+      <a href="market.html" data-nav-key="market" data-dom-id="nav-market" class="min-w-0 flex flex-col items-center justify-center gap-0.5 px-1 h-full text-[#777784]"><i data-lucide="line-chart" class="w-5 h-5 shrink-0"></i><span class="text-[11px] leading-none whitespace-nowrap max-w-full truncate">行情</span></a>
+      <a href="strategies.html" data-nav-key="strategies" data-dom-id="nav-strategies" class="min-w-0 flex flex-col items-center justify-center gap-0.5 px-1 h-full text-[#777784]"><i data-lucide="bot" class="w-5 h-5 shrink-0"></i><span class="text-[11px] leading-none whitespace-nowrap max-w-full truncate">AI 策略</span></a>
+      <a href="accounts.html" data-nav-key="accounts" data-active="true" class="min-w-0 flex flex-col items-center justify-center gap-0.5 px-1 h-full text-[#00d4aa] font-medium"><i data-lucide="credit-card" class="w-5 h-5 shrink-0"></i><span class="text-[11px] leading-none whitespace-nowrap max-w-full truncate">交易账号</span></a>
+      <a href="community.html" data-nav-key="community" data-dom-id="nav-community" class="min-w-0 flex flex-col items-center justify-center gap-0.5 px-1 h-full text-[#777784]"><i data-lucide="users" class="w-5 h-5 shrink-0"></i><span class="text-[11px] leading-none whitespace-nowrap max-w-full truncate">团队</span></a>
+      <a href="profile.html" data-nav-key="profile" data-dom-id="nav-profile" class="min-w-0 flex flex-col items-center justify-center gap-0.5 px-1 h-full text-[#777784]"><i data-lucide="user" class="w-5 h-5 shrink-0"></i><span class="text-[11px] leading-none whitespace-nowrap max-w-full truncate">我的</span></a></div>
+    </nav>
+
+  <!-- icon-render-guarantee: render all icons after full DOM parse (covers bottom nav) -->
+  <script>document.addEventListener('DOMContentLoaded', function(){ if (window.lucide) lucide.createIcons(); });</script>
+</body>
+</html>
+
